@@ -6,10 +6,12 @@ let totalBets = [];
 let betOne;
 let obj = '';
 let bank = 0;
-
+let dHands = [];
+let player;
+let turn;
 
 /*----- app's state (variables) ----*/
-let winner;
+let winner; 
 
 /*----- cached element references -----*/
 
@@ -23,6 +25,8 @@ document.getElementById('btn-fifty').addEventListener('click', placeBets);
 document.getElementById('btn-one-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-five-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-one-thousand').addEventListener('click', placeBets);
+document.getElementById('btn-deal').addEventListener('click', dealCards);
+
 // document.getElementById('btn-allin').addEventListener('click', placeBets);
 // document.getElementById('btn-min').addEventListener('click', placeBets);
 
@@ -98,12 +102,15 @@ function cardLookup(card){
         return 2;
     }       
     }
-function dealCards(){
-        if(cards.length){
-            let rndIdx = Math.floor(Math.random() * cards.length);
-            cards.splice(rndIdx,1)
-        }
+    function dealCards(){
+        let dHands =[];
+        let rndIdx = Math.floor(Math.random() * cards.length);
+        let randCards = cards.splice(rndIdx, 1);
+        dHands.push(randCards[0]);
+        dHands[0] === turn;
+        //  console.log(dHands);
     };
+    dealCards();
     
     
 
