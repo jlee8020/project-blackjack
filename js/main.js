@@ -1,14 +1,19 @@
 /*----- constants -----*/
-let cards =["dA","hA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
-"d06","h06","c06","s06","d05","h05","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
+
+let cards =["dA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
+"d06","h06","c06","s06","d05","h05","hA","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
 
 let totalBets = [];
 let betOne;
 let obj = '';
 let bank = 0;
 let dHands = [];
+let pHands = [];
 let player;
 let turn;
+let sHands =[];
+
+
 
 /*----- app's state (variables) ----*/
 let winner; 
@@ -25,12 +30,17 @@ document.getElementById('btn-fifty').addEventListener('click', placeBets);
 document.getElementById('btn-one-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-five-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-one-thousand').addEventListener('click', placeBets);
-document.getElementById('btn-deal').addEventListener('click', dealCards);
+document.getElementById('start-game').addEventListener('click', startGame);
 
 // document.getElementById('btn-allin').addEventListener('click', placeBets);
 // document.getElementById('btn-min').addEventListener('click', placeBets);
 
 /*----- functions -----*/
+init();
+function startGame (){
+
+}
+
 function placeBets(idx){
     let obj = event.target.textContent;
     if(obj === '$1'){
@@ -102,23 +112,47 @@ function cardLookup(card){
         return 2;
     }       
     }
+
     function dealCards(){
-        let dHands =[];
         let rndIdx = Math.floor(Math.random() * cards.length);
-        let randCards = cards.splice(rndIdx, 1);
-        dHands.push(randCards[0]);
-        dHands[0] === turn;
-        //  console.log(dHands);
+        let randCards = cards.splice(rndIdx, 4);
+        pHands.push(randCards[1],randCards[2]);
+        dHands.push(randCards[0],randCards[3]);
+        // sHands.push(randCards[0],randCards[2],,randCards[3]);
     };
+    
+
     dealCards();
+    shuffle();
+
+function init(){
+let cards =["dA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
+"d06","h06","c06","s06","d05","h05","hA","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
+}
+
+function getPlayerCards(){
     
-    
 
-function init(){}
+}
 
+function shuffle()
+    {
+        // for 2 turns
+        // switch the values of two random cards
+        for (var i = 0; i < 2; i++)
+        {
+            var location1 = Math.floor((Math.random() * cards.length));
+            var location2 = Math.floor((Math.random() * cards.length));
+            var tmp = cards[location1];
 
+            cards[location1] = cards[location2];
+            cards[location2] = tmp;
+        }
+    }
 
-      
+    //function to get a random card off the deck
 
-
-
+  ;
+  // assigning cards to display on the screen
+  let dealerCards = document.getElementsByClassName("dealerCards")[0];
+  let playerCards = document.getElementsByClassName("playerCards")[0];
