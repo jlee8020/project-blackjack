@@ -2,10 +2,17 @@
 /*----- constants -----*/
 // You can turn these into one line, and then add values in the init
 // let cards, totalBets, betOne, ....
-let cards; let totalBets = []; let betOne; let obj = '';
-let bank; let dHands = []; let pHands = [];let player;
+let cards; let totalBets = []; let betOne; let obj = ''; let dHands = []; let pHands = [];let player;
 let turn;let sHands =[];let card1Remove = "temp"; let playerPos;
-isWinner = false;
+
+//render
+let dScore, pScore, bank, bets, 
+// message;
+
+//for Evaluating values
+
+isWinner = false; 
+
 cards =["dA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
     "d06","h06","c06","s06","d05","h05","hA","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
 
@@ -18,8 +25,19 @@ let winner;
 let startGame = document.getElementById('start-game');
 let dCardOne = document.getElementById('Downcard');
 let dCardTwo = document.getElementById('Upcard');
+let dCardThree = document.getElementById('dcard-three');
+let dCardFour = document.getElementById('dcard-four');
+let dCardFive = document.getElementById('dcard-five');
+let dCardSix = document.getElementById('dcard-six');
+
+
 let pCardOne = document.getElementById('cardOne');
 let pCardTwo = document.getElementById('cardTwo');
+let pCardThree = document.getElementById('pcard-three');
+let pCardFour = document.getElementById('pcard-four');
+let pCardFive = document.getElementById('pcard-five');
+let pCardSix = document.getElementById('pcard-six');
+
 let message = document.getElementById('message');
 let gameButton = document.getElementById('btn-deal');
 
@@ -33,17 +51,11 @@ document.getElementById('btn-one-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-five-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-one-thousand').addEventListener('click', placeBets);
 document.getElementById('btn-deal').addEventListener('click', dealCards);
-document.getElementById('start-game').addEventListener('click', init);
+// document.getElementById('start-game').addEventListener('click', dealCards);
 
 // document.getElementById('btn-allin').addEventListener('click', placeBets);
 // document.getElementById('btn-min').addEventListener('click', placeBets);
 
-/*----- functions -----*/
-// init();
-// renderDealer();
-// renderPlayer();
-// function startGame (){
-// }
 
 function placeBets(idx){
     let obj = event.target.textContent;
@@ -128,7 +140,8 @@ function cardLookup(card){
         rndIdx = Math.floor(Math.random() * cards.length);
         randCardsTwo = cards.splice(rndIdx,1);
         pHands.push((`${randCardsTwo}`));
-
+        console.log(dHands);
+        console.log(pHands);
         dCardOne.classList.remove('outline')
         dCardOne.classList.add('back-red')
 
@@ -141,9 +154,41 @@ function cardLookup(card){
         pCardTwo.classList.remove('outline')
         pCardTwo.classList.add(`${pHands[1]}`)
 
-        return dealCards;
-    }}};
-    // render();
+        // continuePlay//
+        // dCardOne.classList.remove('outline')
+        dCardOne.classList.replace('outline',`${dHands[1]}`);
+        
+        dCardThree.classList.remove('outline');
+        dCardThree.classList.add(`${dHands[2]}`);
+        // dCardOne.classList.add(`${dHands[1]}`)
+    
+            dCardFour.classList.remove('outline');
+            dCardFour.classList.add(`${dHands[3]}`);
+    
+            dCardFive.classList.remove('outline');
+            dCardFive.classList.add(`${dHands[4]}`);
+            
+            dCardSix.classList.remove('outline');
+            dCardSix.classList.add(`${dHands[5]}`);
+            
+            pCardThree.classList.remove('outline');
+            pCardThree.classList.add(`${pHands[2]}`);
+    
+            pCardFour.classList.remove('outline');
+            pCardFour.classList.add(`${pHands[3]}`);
+    
+            pCardFive.classList.remove('outline');
+            pCardFive.classList.add(`${pHands[4]}`);
+            
+            pCardSix.classList.remove('outline');
+            pCardSix.classList.add(`${pHands[5]}`);
+        };
+        
+    
+    // if(pHands.length === 1 && dHands.length === 1){
+    // return dealCards;};
+    }};
+    
     
 
     // dealCards();
@@ -159,11 +204,44 @@ function init(){
 };
         
 
-function getPlayerCards(){
-    let value1 = lookupValue(`${dhands[0]}`);
+function addCards(){
+let dCard1;let dCard2; let pCard1;let pCard2;
 
+dCard1 = dHands.shift();
+dValue1 = cardLookup(dCard1);
+dcard1Removed1 = dCard1;
 
+pCard1 = pHands.shift();
+pValue1 = cardLookup(pCard1);
+pcard1Removed2 = pCard1;
+
+dCard2 = dHands.shift();
+dValue2 = cardLookup(dCard2);
+dcard2Removed3 = dCard2;
+
+pCard2 = pHands.shift();
+pValue2 = cardLookup(pCard2);
+pcard2Removed4 = pCard2;
+};
+
+function isBlackJack(){
+let dValue1; let dValue2; let pValue1; let pValue2;
+
+if(dValue1 + dValue2 === 21 && pValue1 + pValue2 < 21){
+        message.textContent = `Dealer has BlackJack!`}
+        console.log(dValue1);
+        console.log(message);
+if(pValue1 + pValue2 === 21 && dValue1 + dValue2 < 21){
+        message.textContent = `You Win! BlackJack!`}
+        console.log(message);
+if(dValue1 === 11){
+            message.textContent = `Insurance Anyone?`}
+else{
+  continuePlay();
 }
+
+};
+
 
 function shuffle()
     {
@@ -179,57 +257,8 @@ function shuffle()
             cards[location2] = tmp;
         }
     }
-
-
   ;
-  // assigning cards to display on the screen
-// function renderDealer(dHands){
-// d1 = document.getElementById('Upcard').addEventListener('click',dHands);
-// d2 = document.getElementById('Downcard').addEventListener('click',dHands);
-
-// document.getElementsByClassName("card back-red large shadow",dHands[0]);
-// document.getElementsByClassName("card back-red large shadow",dHands[1]);
-
-
-    // dealerCardOne = document.getElementsByClassName("card back-red large shadow"),[0];
-    // dealerCardTwo = document.getElementsByClassName("card back-red large shadow"),[1];
 function render(){
-    // message.textContent = "Place Your Bet!";
 
-
-    // dCardOne.classList.remove('outline')
-    // dCardOne.classList.add('back-red')
-
-    // dCardTwo.classList.remove('outline')
-    // dCardTwo.classList.add('back-red')
-
-
-    // if (pHands.length === 1) {
-    //     document.getElementById('cardOne').classlist.remove("card large outline");
-    //     document.getElementById('cardOne').classlist.add("h08");
-        // pCardOne.classList.remove('card large outline');
-        // pCardOne.classList.add(`${pHands[0]}`);
-
-        // cardOne.classList.remove('card large outline');
-        // cardOne.classList.add(`${pHands[0]}`);
 
     };
-    // document.getElementById('Downcard').classList.add("card back-red large shadow");
-    // document.getElementById('Upcard').classList.remove("card d10 large");
-    // document.getElementById('Upcard').classList.add(`${dHands[1]}`);
-
-    // pCardOne = document.getElementById('cardOne').classList.remove("card large outline");
-    // document.getElementById('cardOne').classList.add(`${pHands[1]}`);
-    // document.getElementById('cardTwo').classList.add(`${pHands[0]}`);
-
-    // pCardOne.classList.add('back-blue');
-    // deck1El.classList.remove('outline');
-
-    // document.getElementById("shadow").classList.add
-  
-
-function addCards()
-{
-let value1 = pHands[0];
-}
-
