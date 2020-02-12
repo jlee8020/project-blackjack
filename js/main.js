@@ -3,10 +3,10 @@
 // You can turn these into one line, and then add values in the init
 // let cards, totalBets, betOne, ....
 let cards; let totalBets = []; let betOne; let obj = ''; let dHands = []; let pHands = [];let player;
-let turn;let sHands =[];let card1Remove = "temp"; let playerPos;
-
+let sHands =[];
+let turn,  playerPos, pTotalScore, dTotalScore;
 //render
-let dScore, pScore, bank, bets, 
+let dScore, pScore, bank, bets;
 // message;
 
 //for Evaluating values
@@ -40,6 +40,7 @@ let pCardSix = document.getElementById('pcard-six');
 
 let message = document.getElementById('message');
 let gameButton = document.getElementById('btn-deal');
+let messageTwo = document.getElementById('message2');
 
 /*----- event listeners -----*/
 // document.querySelector('bet-amounts').addEventListener('click', placeBets);
@@ -94,39 +95,43 @@ function placeBets(idx){
 let sumTotalBets = totalBets.reduce(function(acc, val) { return acc + val; }, 0)
 
 function cardLookup(card){
+
+    let cardValues;
+
     if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
-        return 11;
+        cardValues = 11;
     }
     if (card === "dQ" || card === "hQ" || card === "cQ" || card === "sQ" ||
         card === "dK" || card === "hK" || card === "cK" || card === "sK" ||
         card === "dJ" || card === "hJ" || card === "cJ" || card === "sJ" ||
         card === "d10" || card === "h10" || card === "c10" || card === "s10"){
-        return 10;
+        cardValues = 10;
     }
     if (card === "d9" || card === "h9" || card ==="c9" || card === "s9"){
-        return 9;
+        cardValues = 9;
     }
     if (card === "d8" || card === "h8" || card ==="c8" || card === "s8"){
-        return 8;
+        cardValues = 8;
     }
     if (card === "d7" || card === "h7" || card ==="c7" || card === "s7"){
-        return 7;
+        cardValues = 7;
     }
     if (card === "d6" || card === "h6" || card ==="c6" || card === "s6"){
-        return 6;
+        cardValues = 6;
     }
     if (card === "d5" || card === "h5" || card ==="c5" || card === "s5"){
-        return 5;
+        cardValues = 5;
     }
     if (card === "d4" || card === "h4" || card ==="c4" || card === "s4"){
-        return 4;
+        cardValues = 4;
     }
     if (card === "d3" || card === "h3" || card ==="c3" || card === "s3"){
-        return 3;
+        cardValues = 3;
     }
     if (card === "d2" || card === "h2" || card ==="c2" || card === "s2"){
-        return 2;
-    }       
+        cardValues = 2;
+    }    
+    return cardValues;   
     }
 
     function dealCards(){
@@ -140,8 +145,29 @@ function cardLookup(card){
         rndIdx = Math.floor(Math.random() * cards.length);
         randCardsTwo = cards.splice(rndIdx,1);
         pHands.push((`${randCardsTwo}`));
-        console.log(dHands);
-        console.log(pHands);
+
+        messageTwo.textContent = `Dealer has BlackJack!`}
+
+        dValue1 = cardLookup(dHands[0])
+            dScore1 = dValue1;
+
+            pValue1 = cardLookup(pHands[0]);
+            pScore1 = pValue1
+
+            dValue2 = cardLookup(dHands[1]);
+            dScore2 = dValue2;
+
+            pValue2 = cardLookup(pHands[0]);
+            pScore2 = pValue2;
+
+        if(pTotalScore === 21 && pTotalScore < 21){
+                messageTwo.textContent = `Dealer has BlackJack!`}
+        if(pTotalScore === 21 && pTotalScore < 21){
+                messageTwo.textContent = `You Win! BlackJack!`}
+        if(dScore1 === 11){
+                messageTwo.textContent = `Insurance Anyone?`}
+    
+
         dCardOne.classList.remove('outline')
         dCardOne.classList.add('back-red')
 
@@ -187,7 +213,7 @@ function cardLookup(card){
     
     // if(pHands.length === 1 && dHands.length === 1){
     // return dealCards;};
-    }};
+    }
     
     
 
@@ -201,6 +227,10 @@ function init(){
     render();
     placeBets();
     playerPos = 0;
+    pTotalScore = 0;
+    dTotalScore = 0;
+    pScore1 = 0;
+    dScore1 = 0;
 };
         
 
