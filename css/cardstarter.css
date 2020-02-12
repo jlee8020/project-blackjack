@@ -1,4 +1,13 @@
 @charset "UTF-8";
+body
+{
+  display: flex; /* or inline-flex */
+}
+.tracking{
+  box-sizing: border-box;
+  display: inline-block;
+}
+
 .card {
   box-sizing: border-box;
   display: inline-block;

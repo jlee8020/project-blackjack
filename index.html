@@ -12,10 +12,15 @@
 
 </head>
 <body>
-    <h1>Black Jack!</h1>
-    <h2 class='message'>Press Play Game to Start!</h2>
-    <br>
-<section class=dealerCards>
+    <div class='tracking'>
+        <h3>Black Jack!</h3>
+    <h5 id='bank'>Bank</h5>
+    <h5 id='bets'>Bet</h5>
+    <h5 id='dTotalScore'>Dealer Hands: </h5>
+    
+    </div>
+
+    <section class=dealerCards>
     <div id='Downcard'class="card large outline"></div>
     <div id='Upcard'class="card large outline"></div>
     <div id='dcard-three'class="card large outline"></div>
@@ -23,8 +28,6 @@
     <div id='dcard-five'class="card large outline"></div>
     <div id='dcard-six'class="card large outline"></div>
     <br>
-    <br>
-    <h2 id = 'message2'> </h2>
     <section class=playerCards>
         <div id='cardOne'class="card large outline"></div>
         <div id='cardTwo'class="card large outline"></div>
@@ -33,10 +36,13 @@
         <div id='pcard-five'class="card large outline"></div>
         <div id='pcard-six'class="card large outline"></div>
     </section>
-    <!-- "card front-red large shadow" -->
     
     <br>
-    <section id='bet-amounts'class= 'select'>
+        <section id='bet-amounts'class= 'select'>
+        <h5 class='message'>Press Play Game to Start!</h5>
+        <h5 id='pTotalScore'></h5>
+        <h5 id = 'message2'></h5>
+        </section>
         <!-- <button id="btn-min" class="btn btn-warning">Min Bet</button> -->
         <button id="btn-one" class="btn btn-warning">$1</button>
         <button id="btn-five" class="btn btn-warning">$5</button>
@@ -45,11 +51,25 @@
         <button id="btn-one-hundred" class="btn btn-warning">$100</button>
         <button id="btn-five-hundred" class="btn btn-warning">$500</button>
         <button id="btn-one-thousand" class="btn btn-warning">$1000</button>
+        <button id="btn-placeBet" class="btn btn-warning">Place Bet</button>
+        <button id="btn-insYes" class="btn btn-warning">Yes</button>
+        <button id="btn-insNo" class="btn btn-warning">No</button>
+
+        <br>
         <!-- <button id="btn-allin" class="btn btn-warning">All In</button> -->
-    </section><br>
-    <button id="start-game" class="btn btn-warning">Start Game</button>
-    <button id="btn-deal" class="btn btn-warning">Deal Card</button>
-</section> 
+        <section>
+            <br>
+            <button id="btn-double" class="btn btn-warning">DOUBLE</button>
+            <button id="btn-split" class="btn btn-warning">SPLIT</button>
+            <button id="btn-stay" class="btn btn-warning">STAND</button>
+            <br>
+        </section>
+        <section>
+            <br>
+            <button id="start-game" class="btn btn-warning">Start Game</button>
+            <button id="btn-deal" class="btn btn-warning">Start Deal</button>
+            <button id="btn-hit" class="btn btn-warning">HIT</button>
+    </section> 
 </body>
 </html>
 

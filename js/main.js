@@ -2,12 +2,14 @@
 /*----- constants -----*/
 // You can turn these into one line, and then add values in the init
 // let cards, totalBets, betOne, ....
-let cards; let totalBets = []; let betOne; let obj = ''; let dHands = []; let pHands = [];let player;
+let totalBets = []; let betOne; let obj = ''; let dHands = []; let pHands = [];
 let sHands =[];
-let turn,  playerPos, pTotalScore, dTotalScore;
+let turn, pTotalScore, dTotalScore;
 //render
-let dScore, pScore, bank, bets;
+let dScore, pScore, bank, bets, score, playerBets;
 // message;
+let pScore1, pScore2, pScore3, pScore4, pScore5, pScore6, pScore7, pScore8;
+let dScore1, dScore2, dScore3, dScore4, dScore5, dScore6, dScore7, dScore8;
 
 //for Evaluating values
 
@@ -41,6 +43,9 @@ let pCardSix = document.getElementById('pcard-six');
 let message = document.getElementById('message');
 let gameButton = document.getElementById('btn-deal');
 let messageTwo = document.getElementById('message2');
+let totalBetEl = document.getElementById('bets');
+let pScoreEl = document.getElementById('pTotalScore');
+
 
 /*----- event listeners -----*/
 // document.querySelector('bet-amounts').addEventListener('click', placeBets);
@@ -52,15 +57,12 @@ document.getElementById('btn-one-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-five-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-one-thousand').addEventListener('click', placeBets);
 document.getElementById('btn-deal').addEventListener('click', dealCards);
-// document.getElementById('start-game').addEventListener('click', dealCards);
-
-// document.getElementById('btn-allin').addEventListener('click', placeBets);
-// document.getElementById('btn-min').addEventListener('click', placeBets);
+document.getElementById('btn-hit').addEventListener('click', playerHit);
+document.getElementById('btn-placeBet').addEventListener('click', playerBets);
 
 
 function placeBets(idx){
     let obj = event.target.textContent;
-    // message.textContent = "Place Your Bet!";
 
     if(obj === '$1'){
         obj = 1;
@@ -91,8 +93,7 @@ function placeBets(idx){
         obj = 1000;
         totalBets.push(obj);
     }
-};
-let sumTotalBets = totalBets.reduce(function(acc, val) { return acc + val; }, 0)
+}
 
 function cardLookup(card){
 
@@ -135,160 +136,230 @@ function cardLookup(card){
     }
 
     function dealCards(){
-    if (isWinner === false){
-        for (i=1; i<=1; i++){
-        gameButton.textContent = 'Deal Cards';
-        let rndIdx = Math.floor(Math.random() * cards.length);
-        let randCards = cards.splice(rndIdx,1);
-        dHands.push((`${randCards}`));
+           render();
+           placeBets();
+           if (isWinner === false){
+               let rndIdx = Math.floor(Math.random() * cards.length);
+               let randCards = cards.splice(rndIdx,1);
+               dHands.push((`${randCards}`));
+               
+               rndIdx = Math.floor(Math.random() * cards.length);
+               randCardsTwo = cards.splice(rndIdx,1);
+               pHands.push((`${randCardsTwo}`));
 
-        rndIdx = Math.floor(Math.random() * cards.length);
-        randCardsTwo = cards.splice(rndIdx,1);
-        pHands.push((`${randCardsTwo}`));
-
-        messageTwo.textContent = `Dealer has BlackJack!`}
-
-        dValue1 = cardLookup(dHands[0])
-            dScore1 = dValue1;
-
-            pValue1 = cardLookup(pHands[0]);
-            pScore1 = pValue1
-
-            dValue2 = cardLookup(dHands[1]);
-            dScore2 = dValue2;
-
-            pValue2 = cardLookup(pHands[0]);
-            pScore2 = pValue2;
-
-        if(pTotalScore === 21 && pTotalScore < 21){
-                messageTwo.textContent = `Dealer has BlackJack!`}
-        if(pTotalScore === 21 && pTotalScore < 21){
-                messageTwo.textContent = `You Win! BlackJack!`}
-        if(dScore1 === 11){
-                messageTwo.textContent = `Insurance Anyone?`}
-    
-
-        dCardOne.classList.remove('outline')
-        dCardOne.classList.add('back-red')
-
-        dCardTwo.classList.remove('outline')
-        dCardTwo.classList.add(`${dHands[0]}`)
-
-        pCardOne.classList.remove('outline')
-        pCardOne.classList.add(`${pHands[0]}`)
-        
-        pCardTwo.classList.remove('outline')
-        pCardTwo.classList.add(`${pHands[1]}`)
-
-        // continuePlay//
-        // dCardOne.classList.remove('outline')
-        dCardOne.classList.replace('outline',`${dHands[1]}`);
-        
-        dCardThree.classList.remove('outline');
-        dCardThree.classList.add(`${dHands[2]}`);
-        // dCardOne.classList.add(`${dHands[1]}`)
-    
-            dCardFour.classList.remove('outline');
-            dCardFour.classList.add(`${dHands[3]}`);
-    
-            dCardFive.classList.remove('outline');
-            dCardFive.classList.add(`${dHands[4]}`);
-            
-            dCardSix.classList.remove('outline');
-            dCardSix.classList.add(`${dHands[5]}`);
-            
-            pCardThree.classList.remove('outline');
-            pCardThree.classList.add(`${pHands[2]}`);
-    
-            pCardFour.classList.remove('outline');
-            pCardFour.classList.add(`${pHands[3]}`);
-    
-            pCardFive.classList.remove('outline');
-            pCardFive.classList.add(`${pHands[4]}`);
-            
-            pCardSix.classList.remove('outline');
-            pCardSix.classList.add(`${pHands[5]}`);
-        };
-        
-    
-    // if(pHands.length === 1 && dHands.length === 1){
-    // return dealCards;};
-    }
-    
-    
-
-    // dealCards();
-    // shuffle();
-
-function init(){
-    // Can add values to variable declared above
-    
-    bank = 0;
-    render();
-    placeBets();
-    playerPos = 0;
-    pTotalScore = 0;
-    dTotalScore = 0;
-    pScore1 = 0;
-    dScore1 = 0;
-};
-        
-
-function addCards(){
-let dCard1;let dCard2; let pCard1;let pCard2;
-
-dCard1 = dHands.shift();
-dValue1 = cardLookup(dCard1);
-dcard1Removed1 = dCard1;
-
-pCard1 = pHands.shift();
-pValue1 = cardLookup(pCard1);
-pcard1Removed2 = pCard1;
-
-dCard2 = dHands.shift();
-dValue2 = cardLookup(dCard2);
-dcard2Removed3 = dCard2;
-
-pCard2 = pHands.shift();
-pValue2 = cardLookup(pCard2);
-pcard2Removed4 = pCard2;
-};
-
-function isBlackJack(){
-let dValue1; let dValue2; let pValue1; let pValue2;
-
-if(dValue1 + dValue2 === 21 && pValue1 + pValue2 < 21){
-        message.textContent = `Dealer has BlackJack!`}
-        console.log(dValue1);
-        console.log(message);
-if(pValue1 + pValue2 === 21 && dValue1 + dValue2 < 21){
-        message.textContent = `You Win! BlackJack!`}
-        console.log(message);
-if(dValue1 === 11){
-            message.textContent = `Insurance Anyone?`}
-else{
-  continuePlay();
-}
-
-};
-
-
-function shuffle()
-    {
-        // for 2 turns
-        // switch the values of two random cards
-        for (var i = 0; i < 2; i++)
-        {
-            var location1 = Math.floor((Math.random() * cards.length));
-            var location2 = Math.floor((Math.random() * cards.length));
-            var tmp = cards[location1];
-
-            cards[location1] = cards[location2];
-            cards[location2] = tmp;
+               for(i=0; i < pHands.length; i++){
+                score += cardLookup(pHands[i]);
+                pScoreEl.textContent = `Your hand total ${pTotalScore}`;
+                render();
+            }
+           }
         }
+            //    vLookup();
+               isBlackJack();
+            //    checkPlayerWin();
+
+
+    //     pTotalScore = pScore1 + pScore2 + pScore3 + pScore4 + pScore5  + pScore6 + pScore7 +  pScore8;
+    //     dTotalScore = dScore1 + dScore2 + dScore3 + dScore4 + dScore5  + dScore6 + dScore7 +  dScore8;
+
+    //     if(dTotalScore === pTotalScore){
+    //     messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
+    //     It's a push!!`
+        
+    //     if(dTotalScore >= pTotalScore){
+    //     messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
+    //    Sorry Dealer Wins!!`}
+
+    
+    //     if(dTotalScore <= pTotalScore){
+    //     messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
+    //     You Win!!`}
+    // ;
+    // winnerLogic();
+    
+    function playerHit(){
+       
+    }    
+
+        function init(){ 
+
+            bank = 0;
+            bet = 0;
+            pTotalScore = 0;
+            dTotalScore = 0;
+            pScore1 = 0;
+            dScore1 = 0;
+        };
+        // function vLookup(){
+        //     dValue1 = cardLookup(dHands[0])
+        //     dScore1 = dValue1;
+
+        //     dValue2 = cardLookup(dHands[1]);
+        //     dScore2 = dValue2;
+
+        //     dValue3 = cardLookup(dHands[2])
+        //     dScore3 = dValue3;
+
+        //     dValue4 = cardLookup(dHands[3]);
+        //     dScore4 = dValue4;
+            
+        //     dValue5 = cardLookup(dHands[4])
+        //     dScore5 = dValue5;
+
+        //     dValue6 = cardLookup(dHands[5]);
+        //     dScore6 = dValue6;
+
+        //     dValue7 = cardLookup(dHands[6]);
+        //     dScore7 = dValue7;
+
+        //     dValue8 = cardLookup(dHands[7]);
+        //     dScore8 = dValue8;
+
+        //     dValue9 = cardLookup(dHands[8]);
+        //     dScore9 = dValue9;
+        //     //Player Card Values
+        //     pValue1 = cardLookup(pHands[0]);
+        //     pScore1 = pValue1
+            
+        //     pValue2 = cardLookup(pHands[1]);
+        //     pScore2 = pValue2;
+
+        //     dValue3 = cardLookup(dHands[2])
+        //     dScore3 = dValue3;
+
+        //     dValue4 = cardLookup(dHands[3]);
+        //     dScore4 = dValue4;
+            
+        //     dValue5 = cardLookup(dHands[4])
+        //     dScore5 = dValue5;
+
+        //     dValue6 = cardLookup(dHands[5]);
+        //     dScore6 = dValue6;
+
+        //     dValue7 = cardLookup(dHands[6]);
+        //     dScore7 = dValue7;
+
+        //     dValue8 = cardLookup(dHands[7]);
+        //     dScore8 = dValue8;
+
+        //     dValue9 = cardLookup(dHands[8]);
+        //     dScore9 = dValue9;};
+        
+            function render(score){
+
+                pScoreEl.textContent = `${pTotalScore}`;
+
+                dCardOne.classList.remove('outline')
+                dCardOne.classList.add('back-red')
+
+                pCardOne.classList.remove('outline')
+                pCardOne.classList.add(`${pHands[0]}`)
+
+                dCardTwo.classList.remove('outline')
+                dCardTwo.classList.add(`${dHands[0]}`)
+
+                pCardTwo.classList.remove('outline')
+                pCardTwo.classList.add(`${pHands[1]}`)
+                
+                if(cards.length === 2){
+                dCardOne.classList.remove('back-red');
+                dCardOne.classList.add(`${dHands[1]}`);}
+                
+            
+                // dCardOne.classList.remove('outline')
+                // dCardOne.classList.replace('outline',`${dHands[1]}`);
+                
+                    dCardThree.classList.remove('outline');
+                    dCardThree.classList.add(`${dHands[2]}`);
+            
+                    dCardFour.classList.remove('outline');
+                    dCardFour.classList.add(`${dHands[3]}`);
+            
+                    dCardFive.classList.remove('outline');
+                    dCardFive.classList.add(`${dHands[4]}`);
+                    
+                    dCardSix.classList.remove('outline');
+                    dCardSix.classList.add(`${dHands[5]}`);
+                    
+                    pCardThree.classList.remove('outline');
+                    pCardThree.classList.add(`${pHands[2]}`);
+            
+                    pCardFour.classList.remove('outline');
+                    pCardFour.classList.add(`${pHands[3]}`);
+            
+                    pCardFive.classList.remove('outline');
+                    pCardFive.classList.add(`${pHands[4]}`);
+                    
+                    pCardSix.classList.remove('outline');
+                    pCardSix.classList.add(`${pHands[5]}`);
+            };
+
+        function isBlackJack(){
+
+        if(pTotalScore === 21 && pTotalScore < 21){
+        messageTwo.textContent = `Dealer has BlackJack!`}
+        if(pTotalScore === 21 && pTotalScore < 21){
+        messageTwo.textContent = `You Win! BlackJack!`}
+        if(dHands.Length === 2 && dScore1 === 11){
+        messageTwo.textContent = `Insurance Anyone?`}
+        if(pTotalScore === pTotalScore){
+            `Its a push!`
+        }};
+        
+        function hit(){
+            if(pTotalScore < 21){
+
+                
+
+            }
+        }
+    function winnerLogic(){
+        pTotalScore = pScore1 + pScore2 + pScore3 + pScore4 + pScore5  + pScore6 + pScore7 +  pScore8;
+        dTotalScore = dScore1 + dScore2 + dScore3 + dScore4 + dScore5  + dScore6 + dScore7 +  dScore8;
+
+        if(dTotalScore === pTotalScore){
+        messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
+        It's a push!!`
+        
+        if(dTotalScore >= pTotalScore){
+        messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
+       Sorry Dealer Wins!!`}
+
+    
+        if(dTotalScore <= pTotalScore){
+        messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
+        You Win!!`}
+    };};
+
+    function checkPlayerWin(){
+
+        
+
+    
+
     }
-  ;
-function render(){
 
+   function placeBets(){
+    var sumBets = 0;
+    for (var i = 0; i < totalBets.length; i++) {
+        sumBets += totalBets[i]
+        return  sumBets;
+      }
+      totalBetEl.textContent = `${sumBets}`;
 
-    };
+//    }
+// function shuffle()
+//     {
+//         // for 2 turns
+//         // switch the values of two random cards
+//         for (var i = 0; i < 2; i++)
+//         {
+//             var location1 = Math.floor((Math.random() * cards.length));
+//             var location2 = Math.floor((Math.random() * cards.length));
+//             var tmp = cards[location1];
+
+//             cards[location1] = cards[location2];
+//             cards[location2] = tmp;
+//         }
+//     }
+//   
