@@ -1,17 +1,19 @@
+
 /*----- constants -----*/
-
-let cards =["dA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
-"d06","h06","c06","s06","d05","h05","hA","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
-
+// You can turn these into one line, and then add values in the init
+// let cards, totalBets, betOne, ....
+let cards 
 let totalBets = [];
 let betOne;
 let obj = '';
-let bank = 0;
+let bank
 let dHands = [];
 let pHands = [];
 let player;
 let turn;
 let sHands =[];
+let card1Remove = "temp";
+
 
 
 
@@ -19,8 +21,11 @@ let sHands =[];
 let winner; 
 
 /*----- cached element references -----*/
-
-
+let startGame = document.getElementById('start-game');
+let dCardOne = document.getElementById('Downcard');
+let dCardTwo = document.getElementById('Upcard');
+let pCardOne = document.getElementById('cardOne');
+let pCardTwo = document.getElementById('cardTwo');
 /*----- event listeners -----*/
 // document.querySelector('bet-amounts').addEventListener('click', placeBets);
 document.getElementById('btn-one').addEventListener('click', placeBets);
@@ -30,16 +35,18 @@ document.getElementById('btn-fifty').addEventListener('click', placeBets);
 document.getElementById('btn-one-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-five-hundred').addEventListener('click', placeBets);
 document.getElementById('btn-one-thousand').addEventListener('click', placeBets);
-document.getElementById('start-game').addEventListener('click', startGame);
+document.getElementById('btn-deal').addEventListener('click', dealCards);
+document.getElementById('start-game').addEventListener('click', init);
 
 // document.getElementById('btn-allin').addEventListener('click', placeBets);
 // document.getElementById('btn-min').addEventListener('click', placeBets);
 
 /*----- functions -----*/
-init();
-function startGame (){
-
-}
+// init();
+// renderDealer();
+// renderPlayer();
+// function startGame (){
+// }
 
 function placeBets(idx){
     let obj = event.target.textContent;
@@ -73,9 +80,6 @@ function placeBets(idx){
     }
 };
 let sumTotalBets = totalBets.reduce(function(acc, val) { return acc + val; }, 0)
-function render(){
-    
-}
 
 function cardLookup(card){
     if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
@@ -114,21 +118,39 @@ function cardLookup(card){
     }
 
     function dealCards(){
+        console.log(dHands)
         let rndIdx = Math.floor(Math.random() * cards.length);
         let randCards = cards.splice(rndIdx, 4);
+        
         pHands.push(randCards[1],randCards[2]);
         dHands.push(randCards[0],randCards[3]);
-        // sHands.push(randCards[0],randCards[2],,randCards[3]);
+
+        dCardOne.classList.remove('outline')
+        dCardOne.classList.add('back-red')
+
+        dCardTwo.classList.remove('outline')
+        dCardTwo.classList.add(dHands[0])
+
+        pCardOne.classList.remove('outline')
+        pCardOne.classList.add(pHands[0])
+        
+        pCardTwo.classList.remove('outline')
+        pCardTwo.classList.add(pHands[1])
     };
+    // render();
     
 
-    dealCards();
-    shuffle();
+    // dealCards();
+    // shuffle();
 
 function init(){
-let cards =["dA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
-"d06","h06","c06","s06","d05","h05","hA","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
-}
+    // Can add values to variable declared above
+    console.log('in init')
+    cards =["dA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
+    "d06","h06","c06","s06","d05","h05","hA","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
+    bank = 0
+    render();
+};
 
 function getPlayerCards(){
     
@@ -150,9 +172,54 @@ function shuffle()
         }
     }
 
-    //function to get a random card off the deck
 
   ;
   // assigning cards to display on the screen
-  let dealerCards = document.getElementsByClassName("dealerCards")[0];
-  let playerCards = document.getElementsByClassName("playerCards")[0];
+// function renderDealer(dHands){
+// d1 = document.getElementById('Upcard').addEventListener('click',dHands);
+// d2 = document.getElementById('Downcard').addEventListener('click',dHands);
+
+// document.getElementsByClassName("card back-red large shadow",dHands[0]);
+// document.getElementsByClassName("card back-red large shadow",dHands[1]);
+
+
+    // dealerCardOne = document.getElementsByClassName("card back-red large shadow"),[0];
+    // dealerCardTwo = document.getElementsByClassName("card back-red large shadow"),[1];
+function render(){
+    console.log('render', dHands.length)
+    // dCardOne.classList.remove('outline')
+    // dCardOne.classList.add('back-red')
+
+    // dCardTwo.classList.remove('outline')
+    // dCardTwo.classList.add('back-red')
+
+
+    if (pHands.length === 1) {
+        document.getElementById('cardOne').classlist.remove("card large outline");
+        document.getElementById('cardOne').classlist.add("h08");
+        // pCardOne.classList.remove('card large outline');
+        // pCardOne.classList.add(`${pHands[0]}`);
+
+        // cardOne.classList.remove('card large outline');
+        // cardOne.classList.add(`${pHands[0]}`);
+
+    }};
+    // document.getElementById('Downcard').classList.add("card back-red large shadow");
+    // document.getElementById('Upcard').classList.remove("card d10 large");
+    // document.getElementById('Upcard').classList.add(`${dHands[1]}`);
+
+    // pCardOne = document.getElementById('cardOne').classList.remove("card large outline");
+    // document.getElementById('cardOne').classList.add(`${pHands[1]}`);
+    // document.getElementById('cardTwo').classList.add(`${pHands[0]}`);
+
+    // pCardOne.classList.add('back-blue');
+    // deck1El.classList.remove('outline');
+
+    // document.getElementById("shadow").classList.add
+  
+
+function addCards(){
+    
+
+};
+
