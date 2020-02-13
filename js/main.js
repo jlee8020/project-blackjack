@@ -1,365 +1,409 @@
-
-/*----- constants -----*/
-// You can turn these into one line, and then add values in the init
-// let cards, totalBets, betOne, ....
-let totalBets = []; let betOne; let obj = ''; let dHands = []; let pHands = [];
-let sHands =[];
-let turn, pTotalScore, dTotalScore;
-//render
-let dScore, pScore, bank, bets, score, playerBets;
-// message;
-let pScore1, pScore2, pScore3, pScore4, pScore5, pScore6, pScore7, pScore8;
-let dScore1, dScore2, dScore3, dScore4, dScore5, dScore6, dScore7, dScore8;
-
-//for Evaluating values
-
-isWinner = false; 
-
-cards =["dA","cA","sA","dQ","dK","dJ","d10","hQ","hK","hJ","h10","cQ","cK","cJ","c10","sQ","sK","sJ","s10","d09","h09","c09","s09","d08","h08","c08","s08","d07","h07","c07","s07",
-    "d06","h06","c06","s06","d05","h05","hA","c05","s05","d04","h04","c04","s04","d03","h03","c03","s03","d02","h02","c02","s03",];
-
-
-
-/*----- app's state (variables) ----*/
-let winner; 
-
-/*----- cached element references -----*/
-let startGame = document.getElementById('start-game');
-let dCardOne = document.getElementById('Downcard');
-let dCardTwo = document.getElementById('Upcard');
-let dCardThree = document.getElementById('dcard-three');
-let dCardFour = document.getElementById('dcard-four');
-let dCardFive = document.getElementById('dcard-five');
-let dCardSix = document.getElementById('dcard-six');
-
-
-let pCardOne = document.getElementById('cardOne');
-let pCardTwo = document.getElementById('cardTwo');
-let pCardThree = document.getElementById('pcard-three');
-let pCardFour = document.getElementById('pcard-four');
-let pCardFive = document.getElementById('pcard-five');
-let pCardSix = document.getElementById('pcard-six');
-
+// Variable declarations
+let deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"];
+let playerHand = [];
+let dealerHand = [];
+let money = 1000;
+let bet = 0;
+let playerTotal = 0;
+let dealerTotal = 0;
+let pickCard;
+// Cached element references
 let message = document.getElementById('message');
-let gameButton = document.getElementById('btn-deal');
-let messageTwo = document.getElementById('message2');
-let totalBetEl = document.getElementById('bets');
-let pScoreEl = document.getElementById('pTotalScore');
+let message1 = document.getElementById('message1');
+let message2 = document.getElementById('message2');
+let bet1 = document.getElementById('betOne');
+let bet5 = document.getElementById('betFive');
+let bet25 = document.getElementById('betTwentyFive');
+let bet50 = document.getElementById('betFifty');
+let bet100 = document.getElementById('betHundred');
+let betAmount = document.getElementById('betAmount');
+let clearBet = document.getElementById('clearBet');
+let dealBtn = document.getElementById('dealBtn');
+let hitBtn = document.getElementById('hitBtn');
+let doubleBtn = document.getElementById('doubleBtn');
+let stayBtn = document.getElementById('stayBtn');
+let splitBtn = document.getElementById('splitBtn');
+let playerCard2 = document.getElementById('playerCard2');
+let playerCard3 = document.getElementById('playerCard3');
+let playerCard4 = document.getElementById('playerCard4');
+let playerCard5 = document.getElementById('playerCard5');
+let playerCard6 = document.getElementById('playerCard6');
+let dealerCard0 = document.getElementById('back-red');
+let flipDealer = document.getElementById('flipDealer');
+let messagetotal = document.getElementById('messagetotal')
+// Event listeners
+bet1.addEventListener('click', addBet);
+bet5.addEventListener('click', addBet);
+bet25.addEventListener('click', addBet);
+bet50.addEventListener('click', addBet);
+bet100.addEventListener('click', addBet);
+clearBet.addEventListener('click', addBet);
+dealBtn.addEventListener('click', dealHand);
+hitBtn.addEventListener('click', handlehitBtn);
+doubleBtn.addEventListener('click', handleActions)
+stayBtn.addEventListener('click', handleActions)
+flipDealer.addEventListener('click', flipDealerCard)
+// splitBtn.addEventListener('click',)
+// Functions
 
 
-/*----- event listeners -----*/
-// document.querySelector('bet-amounts').addEventListener('click', placeBets);
-document.getElementById('btn-one').addEventListener('click', placeBets);
-document.getElementById('btn-five').addEventListener('click', placeBets);
-document.getElementById('btn-twenty-five').addEventListener('click', placeBets);
-document.getElementById('btn-fifty').addEventListener('click', placeBets);
-document.getElementById('btn-one-hundred').addEventListener('click', placeBets);
-document.getElementById('btn-five-hundred').addEventListener('click', placeBets);
-document.getElementById('btn-one-thousand').addEventListener('click', placeBets);
-document.getElementById('btn-deal').addEventListener('click', dealCards);
-document.getElementById('btn-hit').addEventListener('click', playerHit);
-document.getElementById('btn-placeBet').addEventListener('click', playerBets);
+// Initialization resets deck and both hands
+function init() {
+    deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"];
+    playerHand = [];
+    dealerHand = [];
+    render();
+}
+// Removes bet buttons when cards are dealt
+function hideBets() {
+    bet1.classList.add('hidden');
+    bet5.classList.add('hidden');
+    bet25.classList.add('hidden');
+    bet50.classList.add('hidden');
+    bet100.classList.add('hidden');
+    clearBet.classList.add('hidden');
+}
 
+// Shows bet buttons when cards are cleared
+function showBets() {
+    bet1.classList.remove('hidden');
+    bet5.classList.remove('hidden');
+    bet25.classList.remove('hidden');
+    bet50.classList.remove('hidden');
+    bet100.classList.remove('hidden');
+    clearBet.classList.remove('hidden');
+}
+function showHitDoubleStay(){
+    hideBets();
+    hitBtn.classList.remove('hidden');
+    doubleBtn.classList.remove('hidden');
+    stayBtn.classList.remove('hidden');
+    splitBtn.classList.remove('hidden');
+}
+function hideButtons(){
+    dealBtn.classList.add('hidden');
+    hitBtn.classList.add('hidden');
+    stayBtn.classList.add('hidden');
+    splitBtn.classList.add('hidden');
+}
 
-function placeBets(idx){
-    let obj = event.target.textContent;
+// Deals the first 4 cards in the round
+function dealHand() {
+    hideBets();
+    setTimeout(() => {
+        let pickCard = drawCard();
+        dealerHand.push(`${pickCard}`);
+        render();
+    }, 500);
+    setTimeout(() => {
+        let pickCard = drawCard();
+        playerHand.push(`${pickCard}`);
+        render();
+    }, 1000);
+    setTimeout(() => {
+        let pickCard = drawCard();
+        dealerHand.push(`${pickCard}`);
+        render();
+    }, 1500);
+    setTimeout(() => {
+        let pickCard = drawCard();
+        playerHand.push(`${pickCard}`);
+        render();
+    }, 2000);
 
-    if(obj === '$1'){
-        obj = 1;
-        totalBets.push(obj);
+    hideButtons();
+    //after init deal keep
+    // if(dealerHand === 2 && playerHand === 2){
+
+    // }
+
+}
+
+function dealPlayerOnly() {
+        hideBets();
+        let pickCard = drawCard();
+        playerHand.push(`${pickCard}`);
+        render();
+        showActions();
 
     }
-    if(obj === '$5'){
-        obj = 5;
-        totalBets.push(obj);
+function handlehitBtn(evt){
+        hideBets();
+        render();
+        if(playerHand.Length === 2)
+        playerCard2.classList.remove('hidden');
+        pickCard = drawCard();
+        playerHand.push(`${pickCard}`);
+        getTotals();
+        checkForWin();
+
+        if(playerHand.Length === 3)
+        playerCard3.classList.remove('hidden');
+        pickCard = drawCard();
+        playerHand.push(`${pickCard}`);
+        getTotals();
+        checkForWin();
+
+        // playerCard4.classList.remove('hidden');
+        // pickCard = drawCard();
+        // playerHand.push(`${pickCard}`);
+        // getTotals();
+        // checkForWin();
+
+        // playerCard5.classList.remove('hidden');
+        // pickCard = drawCard();
+        // playerHand.push(`${pickCard}`);
+        // getTotals();
+        // checkForWin();
+
+        // playerCard6.classList.remove('hidden');
+        // pickCard = drawCard();
+        // playerHand.push(`${pickCard}`);
+        // getTotals();
+        // checkForWin();
     }
-    if(obj === '$25'){
-        obj = 25;
-        totalBets.push(obj);
+function handleActions(evt){
+    if (evt.target.id === 'doubleBtn') {
+        bet = bet * 2;
+        money -= bet * 2;
     }
-    if(obj === '$50'){
-        obj = 50;
-        totalBets.push(obj);
+    if (evt.target.id === 'stayBtn') {
+        setTimeout(() => {
+            let pickCard = drawCard();
+            dealerHand.push(`${pickCard}`);
+            render();
+        }, 1500);
     }
-    if(obj === '$100'){
-        obj = 100;
-        totalBets.push(obj);
+    // if (evt.target.id === 'splitBtn' && money >= 50) {
+    //     bet += 50;
+    //     money -= 50;
+    // }
+}
+
+// Calculates the card totals for each hand
+function getTotals() {
+    for (i=0; i< dealerHand.length; i++) {
+        dealerTotal += cardLookup(`${dealerHand[i]}`)
     }
-    if(obj === '$500'){
-        obj = 500;
-        totalBets.push(obj);
-    }
-    if(obj === '$1000'){
-        obj = 1000;
-        totalBets.push(obj);
+    for (i=0; i< playerHand.length; i++) {
+        playerTotal += cardLookup(`${playerHand[i]}`)
     }
 }
 
-function cardLookup(card){
+// Clears the cards on the table
+function clearHand() {
+    showBets();
+    for (i=0; i<= playerHand.length; i++) {
+        let removeCard = playerHand.splice(0, 1);
+        document.getElementById(`playerCard${i}`).classList.remove(`${removeCard}`);
+        
+    }
+    if(dealerHand.length === 2 && playerHand.length === 2 )
+    //flip hidden dealer card before this will work 100%
 
-    let cardValues;
+    // for (i=0; i<= dealerHand.length; i++) {
+    //     let removeCard = playerHand.splice(0, 1);
+    //     document.getElementById(`dealerCard${i}`).classList.remove(`${removeCard}`);
+    // }
+    render();
+}
 
+    
+        
+
+
+// Increase bet amount by value shown on each button
+function addBet(evt) {
+    if (evt.target.id === 'betOne' && money >= 1) {
+        bet += 1;
+        money -= 1;
+    }
+    if (evt.target.id === 'betFive' && money >= 5) {
+        bet += 5;
+        money -= 5;
+    }
+    if (evt.target.id === 'betTwentyFive' && money >= 25) {
+        bet += 25;
+        money -= 25;
+    }
+    if (evt.target.id === 'betFifty' && money >= 50) {
+        bet += 50;
+        money -= 50;
+    }
+    if (evt.target.id === 'betHundred' && money >= 100) {
+        bet += 100;
+        money -= 100;
+    }
+    if (evt.target.id === 'clearBet') {
+        money += bet;
+        bet = 0;
+    }
+    render()
+}
+
+// Function to randomly pick a card from the ones remaining in the deck
+function drawCard() {
+    randIdx = Math.floor(Math.random() * deck.length);
+    cardDrawn = deck.splice(randIdx, 1);
+    return cardDrawn;
+}
+
+// Reshuffles the deck
+function shuffleDeck(cardsToShuffle) {
+    let shuffledCards = [];
+    let shuffled;
+
+        for (i=30; i=cardsToShuffle.length; i++){
+            randIdx=Math.floor(Math.random()*cardsToShuffle.length);
+            shuffled = cardsToShuffle.splice(randIdx, 1);
+            shuffledCards.push(`${shuffled}`);
+        }
+    message.textContent = 'Cards Low, Deck Shuffled';
+    deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"];
+    playerHand = [];
+    dealerHand = [];
+    render();
+    return shuffledCards;
+}
+
+// Looks up the card passed in and returns a numerical value for it
+function cardLookup(card) {
+    let cardValue;
     if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
-        cardValues = 11;
+        cardValue = 11;
+    }
+    if (card === "dA" && playerTotal > 21 || card === "hA" && playerTotal > 21|| 
+    card ==="cA" && playerTotal > 21 || card === "sA" && playerTotal > 21){
+            cardValue = 1;
+    }
+    if (card === "dA" && dealerTotal > 21 || card === "hA" && dealerTotal > 21|| 
+    card ==="cA" && dealerTotal > 21 || card === "sA" && dealerTotal > 21){
+            cardValue = 1;
+    }
+    if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
+            cardValue = 11;
     }
     if (card === "dQ" || card === "hQ" || card === "cQ" || card === "sQ" ||
         card === "dK" || card === "hK" || card === "cK" || card === "sK" ||
         card === "dJ" || card === "hJ" || card === "cJ" || card === "sJ" ||
         card === "d10" || card === "h10" || card === "c10" || card === "s10"){
-        cardValues = 10;
+        cardValue = 10;
     }
-    if (card === "d9" || card === "h9" || card ==="c9" || card === "s9"){
-        cardValues = 9;
+    if (card === "d09" || card === "h09" || card ==="c09" || card === "s09"){
+        cardValue = 9;
     }
-    if (card === "d8" || card === "h8" || card ==="c8" || card === "s8"){
-        cardValues = 8;
+    if (card === "d08" || card === "h08" || card ==="c08" || card === "s08"){
+        cardValue = 8;
     }
-    if (card === "d7" || card === "h7" || card ==="c7" || card === "s7"){
-        cardValues = 7;
+    if (card === "d07" || card === "h07" || card ==="c07" || card === "s07"){
+        cardValue = 7;
     }
-    if (card === "d6" || card === "h6" || card ==="c6" || card === "s6"){
-        cardValues = 6;
+    if (card === "d06" || card === "h06" || card ==="c06" || card === "s06"){
+        cardValue = 6;
     }
-    if (card === "d5" || card === "h5" || card ==="c5" || card === "s5"){
-        cardValues = 5;
+    if (card === "d05" || card === "h05" || card ==="c05" || card === "s05"){
+        cardValue = 5;
     }
-    if (card === "d4" || card === "h4" || card ==="c4" || card === "s4"){
-        cardValues = 4;
+    if (card === "d04" || card === "h04" || card ==="c04" || card === "s04"){
+        cardValue = 4;
     }
-    if (card === "d3" || card === "h3" || card ==="c3" || card === "s3"){
-        cardValues = 3;
+    if (card === "d03" || card === "h03" || card ==="c03" || card === "s03"){
+        cardValue = 3;
     }
-    if (card === "d2" || card === "h2" || card ==="c2" || card === "s2"){
-        cardValues = 2;
+    if (card === "d02" || card === "h02" || card ==="c02" || card === "s02"){
+        cardValue = 2;
     }    
-    return cardValues;   
+    return cardValue;
+}
+
+// Adjusts all CSS for cards to be rendered
+function render() {
+    betAmount.textContent = `$ ${bet}`;
+    if (dealerHand.length >= 2){
+    message1.textContent = `Dealer Hands: ${dealerTotal}`;
     }
-
-    function dealCards(){
-           render();
-           placeBets();
-           if (isWinner === false){
-               let rndIdx = Math.floor(Math.random() * cards.length);
-               let randCards = cards.splice(rndIdx,1);
-               dHands.push((`${randCards}`));
-               
-               rndIdx = Math.floor(Math.random() * cards.length);
-               randCardsTwo = cards.splice(rndIdx,1);
-               pHands.push((`${randCardsTwo}`));
-
-               for(i=0; i < pHands.length; i++){
-                score += cardLookup(pHands[i]);
-                pScoreEl.textContent = `Your hand total ${pTotalScore}`;
-                render();
-            }
-           }
-        }
-            //    vLookup();
-               isBlackJack();
-            //    checkPlayerWin();
-
-
-    //     pTotalScore = pScore1 + pScore2 + pScore3 + pScore4 + pScore5  + pScore6 + pScore7 +  pScore8;
-    //     dTotalScore = dScore1 + dScore2 + dScore3 + dScore4 + dScore5  + dScore6 + dScore7 +  dScore8;
-
-    //     if(dTotalScore === pTotalScore){
-    //     messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
-    //     It's a push!!`
-        
-    //     if(dTotalScore >= pTotalScore){
-    //     messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
-    //    Sorry Dealer Wins!!`}
-
-    
-    //     if(dTotalScore <= pTotalScore){
-    //     messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
-    //     You Win!!`}
-    // ;
-    // winnerLogic();
-    
-    function playerHit(){
-       
-    }    
-
-        function init(){ 
-
-            bank = 0;
-            bet = 0;
-            pTotalScore = 0;
-            dTotalScore = 0;
-            pScore1 = 0;
-            dScore1 = 0;
-        };
-        // function vLookup(){
-        //     dValue1 = cardLookup(dHands[0])
-        //     dScore1 = dValue1;
-
-        //     dValue2 = cardLookup(dHands[1]);
-        //     dScore2 = dValue2;
-
-        //     dValue3 = cardLookup(dHands[2])
-        //     dScore3 = dValue3;
-
-        //     dValue4 = cardLookup(dHands[3]);
-        //     dScore4 = dValue4;
-            
-        //     dValue5 = cardLookup(dHands[4])
-        //     dScore5 = dValue5;
-
-        //     dValue6 = cardLookup(dHands[5]);
-        //     dScore6 = dValue6;
-
-        //     dValue7 = cardLookup(dHands[6]);
-        //     dScore7 = dValue7;
-
-        //     dValue8 = cardLookup(dHands[7]);
-        //     dScore8 = dValue8;
-
-        //     dValue9 = cardLookup(dHands[8]);
-        //     dScore9 = dValue9;
-        //     //Player Card Values
-        //     pValue1 = cardLookup(pHands[0]);
-        //     pScore1 = pValue1
-            
-        //     pValue2 = cardLookup(pHands[1]);
-        //     pScore2 = pValue2;
-
-        //     dValue3 = cardLookup(dHands[2])
-        //     dScore3 = dValue3;
-
-        //     dValue4 = cardLookup(dHands[3]);
-        //     dScore4 = dValue4;
-            
-        //     dValue5 = cardLookup(dHands[4])
-        //     dScore5 = dValue5;
-
-        //     dValue6 = cardLookup(dHands[5]);
-        //     dScore6 = dValue6;
-
-        //     dValue7 = cardLookup(dHands[6]);
-        //     dScore7 = dValue7;
-
-        //     dValue8 = cardLookup(dHands[7]);
-        //     dScore8 = dValue8;
-
-        //     dValue9 = cardLookup(dHands[8]);
-        //     dScore9 = dValue9;};
-        
-            function render(score){
-
-                pScoreEl.textContent = `${pTotalScore}`;
-
-                dCardOne.classList.remove('outline')
-                dCardOne.classList.add('back-red')
-
-                pCardOne.classList.remove('outline')
-                pCardOne.classList.add(`${pHands[0]}`)
-
-                dCardTwo.classList.remove('outline')
-                dCardTwo.classList.add(`${dHands[0]}`)
-
-                pCardTwo.classList.remove('outline')
-                pCardTwo.classList.add(`${pHands[1]}`)
-                
-                if(cards.length === 2){
-                dCardOne.classList.remove('back-red');
-                dCardOne.classList.add(`${dHands[1]}`);}
-                
-            
-                // dCardOne.classList.remove('outline')
-                // dCardOne.classList.replace('outline',`${dHands[1]}`);
-                
-                    dCardThree.classList.remove('outline');
-                    dCardThree.classList.add(`${dHands[2]}`);
-            
-                    dCardFour.classList.remove('outline');
-                    dCardFour.classList.add(`${dHands[3]}`);
-            
-                    dCardFive.classList.remove('outline');
-                    dCardFive.classList.add(`${dHands[4]}`);
-                    
-                    dCardSix.classList.remove('outline');
-                    dCardSix.classList.add(`${dHands[5]}`);
-                    
-                    pCardThree.classList.remove('outline');
-                    pCardThree.classList.add(`${pHands[2]}`);
-            
-                    pCardFour.classList.remove('outline');
-                    pCardFour.classList.add(`${pHands[3]}`);
-            
-                    pCardFive.classList.remove('outline');
-                    pCardFive.classList.add(`${pHands[4]}`);
-                    
-                    pCardSix.classList.remove('outline');
-                    pCardSix.classList.add(`${pHands[5]}`);
-            };
-
-        function isBlackJack(){
-
-        if(pTotalScore === 21 && pTotalScore < 21){
-        messageTwo.textContent = `Dealer has BlackJack!`}
-        if(pTotalScore === 21 && pTotalScore < 21){
-        messageTwo.textContent = `You Win! BlackJack!`}
-        if(dHands.Length === 2 && dScore1 === 11){
-        messageTwo.textContent = `Insurance Anyone?`}
-        if(pTotalScore === pTotalScore){
-            `Its a push!`
-        }};
-        
-        function hit(){
-            if(pTotalScore < 21){
-
-                
-
-            }
-        }
-    function winnerLogic(){
-        pTotalScore = pScore1 + pScore2 + pScore3 + pScore4 + pScore5  + pScore6 + pScore7 +  pScore8;
-        dTotalScore = dScore1 + dScore2 + dScore3 + dScore4 + dScore5  + dScore6 + dScore7 +  dScore8;
-
-        if(dTotalScore === pTotalScore){
-        messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
-        It's a push!!`
-        
-        if(dTotalScore >= pTotalScore){
-        messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
-       Sorry Dealer Wins!!`}
-
-    
-        if(dTotalScore <= pTotalScore){
-        messageTwo.textContent = `Dealer Total ${dTotalScore} ... Your hand total is... ${pTotalScore}
-        You Win!!`}
-    };};
-
-    function checkPlayerWin(){
-
-        
-
-    
-
+    if (playerHand.length >= 2){
+    message2.textContent = `Your Hands: ${playerTotal}`;
     }
+    if (deck.length < 26) {
+        document.getElementById('drawPile').classList.remove('shadow');
+    }
+    if (playerHand.length) {
+        for (i=0; i < playerHand.length; i++) {
+            document.getElementById(`playerCard${i}`).classList.add(`${playerHand[i]}`)
+            document.getElementById(`playerCard${i}`).classList.remove('outline');
+        }
+    } else {
+        document.getElementById('playerCard0').classList.add('outline');
+        document.getElementById('playerCard1').classList.add('outline');
+    }
+    if (dealerHand.length === 1) {
+        document.getElementById('dealerCard0').classList.add('back-red');
+        document.getElementById('dealerCard0').classList.remove('outline');
+    }
+    if (dealerHand.length > 1) {    
+        for (i=1; i <= playerHand.length; i++) {
+            document.getElementById(`dealerCard1`).classList.add(`${dealerHand[i]}`)
+            document.getElementById(`dealerCard1`).classList.remove('outline');}
+    }
+    // if (playerHand === 2 && dealer Hand ) {    
+    //         for (i=2; i <= playerHand.length; i++) {
+    //             document.getElementById(`dealerCard${i}`).classList.remove('back-red');
+    //             document.getElementById(`dealerCard${i}`).classList.add(`${dealerHand[i]}`)
+    //         }
+    // }
+}
+function flipDealerCard(){
+            hideButtons();
+            if(dealerHand.Length === 2 && playerHand === 2);
+            document.getElementById('dealerCard0').classList.remove('back-red');
+            document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
+            getTotals();
+            checkForWin();
+            showHitDoubleStay();
+            hideFlippedDealer();
+}
+        function hideFlippedDealer(){
+            flipDealer.classList.remove('hidden');
+        }
 
-   function placeBets(){
-    var sumBets = 0;
-    for (var i = 0; i < totalBets.length; i++) {
-        sumBets += totalBets[i]
-        return  sumBets;
-      }
-      totalBetEl.textContent = `${sumBets}`;
-
-//    }
-// function shuffle()
-//     {
-//         // for 2 turns
-//         // switch the values of two random cards
-//         for (var i = 0; i < 2; i++)
-//         {
-//             var location1 = Math.floor((Math.random() * cards.length));
-//             var location2 = Math.floor((Math.random() * cards.length));
-//             var tmp = cards[location1];
-
-//             cards[location1] = cards[location2];
-//             cards[location2] = tmp;
-//         }
-//     }
-//   
+    function checkForWin(){
+    if (playerTotal === 21 && dealerTotal === 21){
+            messagetotal.textContent = `It's a push!`
+         }
+    if (dealerTotal < 21 && playerTotal === 21){
+            messagetotal.textContent = `You have BlackJack!`
+        }
+    if (dealerTotal === 21 && playerTotal > 21){
+            messagetotal.textContent = `Dealer has BlackJack!`
+        }
+        //after flip: if dealer > 17 && player player options show
+    if (dealerTotal > 17 < 21){
+            messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
+        }
+    if(dealerTotal < 21 && playerTotal < 21){
+            messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
+        }
+    // if(playerTotal > dealerTotal){
+    //         messagetotal.textContent = `You Win!`
+    //     }
+        // if(dealerHand[1] === 11){
+        //     message1.textContent = `Insurance Anyone??!`
+        // }
+    
+    if(dealerTotal > 21){
+         messagetotal.textContent = `Dealer Bust!!`
+        }
+    if(playerTotal > 21){
+            messagetotal.textContent = `You Bust!!`
+        }
+    // if(playerTotal < 21 && dealerTotal > 21){
+    //     messagetotal.textContent = `Dealer Bust!`
+    //     }
+    // if(playerTotal < 21 && dealerTotal > 21){
+    //     messagetotal.textContent = `Dealer Bust!`
+    //     }
+    // if(dealerTotal < 21 && playerTotal > 21){
+    //         messagetotal.textContent = `Dealer Wins!`
+    //     }
+    }

@@ -1,13 +1,12 @@
 @charset "UTF-8";
-body
-{
-  display: flex; /* or inline-flex */
+body {
+    display: inline-block;
+    text-align: center;
+    
 }
-.tracking{
-  box-sizing: border-box;
-  display: inline-block;
+.bet-info {
+  font-size: 30px;
 }
-
 .card {
   box-sizing: border-box;
   display: inline-block;
