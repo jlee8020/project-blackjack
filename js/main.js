@@ -21,7 +21,7 @@ let clearBet = document.getElementById('clearBet');
 let dealBtn = document.getElementById('dealBtn');
 let hitBtn = document.getElementById('hitBtn');
 let doubleBtn = document.getElementById('doubleBtn');
-let stayBtn = document.getElementById('stayBtn');
+let standBtn = document.getElementById('standBtn');
 let splitBtn = document.getElementById('splitBtn');
 let playerCard2 = document.getElementById('playerCard2');
 let playerCard3 = document.getElementById('playerCard3');
@@ -32,19 +32,13 @@ let dealerCard0 = document.getElementById('back-red');
 let flipDealer = document.getElementById('flipDealer');
 let messagetotal = document.getElementById('messagetotal')
 // Event listeners
-bet1.addEventListener('click', addBet);
-bet5.addEventListener('click', addBet);
-bet25.addEventListener('click', addBet);
-bet50.addEventListener('click', addBet);
-bet100.addEventListener('click', addBet);
-clearBet.addEventListener('click', addBet);
+
 dealBtn.addEventListener('click', dealHand);
-hitBtn.addEventListener('click', handlehitBtn);
-doubleBtn.addEventListener('click', handleActions)
-stayBtn.addEventListener('click', handleActions)
+hitBtn.addEventListener('click', handleHitBtn);
+
 flipDealer.addEventListener('click', flipDealerCard)
-// splitBtn.addEventListener('click',)
-// Functions
+standBtn.addEventListener('click', handleStandBtn);
+
 
 
 // Initialization resets deck and both hands
@@ -54,15 +48,7 @@ function init() {
     dealerHand = [];
     render();
 }
-// Removes bet buttons when cards are dealt
-function hideBets() {
-    bet1.classList.add('hidden');
-    bet5.classList.add('hidden');
-    bet25.classList.add('hidden');
-    bet50.classList.add('hidden');
-    bet100.classList.add('hidden');
-    clearBet.classList.add('hidden');
-}
+
 
 // Shows bet buttons when cards are cleared
 function showBets() {
@@ -74,22 +60,18 @@ function showBets() {
     clearBet.classList.remove('hidden');
 }
 function showHitDoubleStay(){
-    hideBets();
+
     hitBtn.classList.remove('hidden');
-    doubleBtn.classList.remove('hidden');
-    stayBtn.classList.remove('hidden');
-    splitBtn.classList.remove('hidden');
+    standBtn.classList.remove('hidden');
 }
 function hideButtons(){
     dealBtn.classList.add('hidden');
     hitBtn.classList.add('hidden');
-    stayBtn.classList.add('hidden');
-    splitBtn.classList.add('hidden');
+    standBtn.classList.add('hidden');
 }
 
 // Deals the first 4 cards in the round
 function dealHand() {
-    hideBets();
     setTimeout(() => {
         let pickCard = drawCard();
         dealerHand.push(`${pickCard}`);
@@ -110,84 +92,97 @@ function dealHand() {
         playerHand.push(`${pickCard}`);
         render();
     }, 2000);
-
+    setTimeout(getTotals, 2500);
+    
     hideButtons();
-    //after init deal keep
-    // if(dealerHand === 2 && playerHand === 2){
+};
 
-    // }
+    function handleStandBtn(){
 
-}
-
-function dealPlayerOnly() {
-        hideBets();
-        let pickCard = drawCard();
-        playerHand.push(`${pickCard}`);
-        render();
-        showActions();
-
+        if(dealerHand.length === 2 && dealerTotal < 17){
+            dealerCard2.classList.remove('hidden');
+            document.getElementById(`dealerCard2`).classList.add(`${dealerHand[i]}`)
+            pickCard = drawCard();
+            dealerHand.push(`${pickCard}`);
+            checkForWin();
+            render();
+        }
+        else if(dealerHand.length === 3 && dealerTotal < 17){
+            dealerCard3.classList.remove('hidden');
+            pickCard = drawCard();
+            dealerHand.push(`${pickCard}`);
+            checkForWin();
+            render();
+        }
+        else if(dealerHand.length === 4 && dealerTotal < 17){
+            dealerCard4.classList.remove('hidden');
+            pickCard = drawCard();
+            dealerHand.push(`${pickCard}`);
+            checkForWin();
+            render();
+        }else if(dealerHand.length === 5 && dealerTotal < 17){
+            dealerCard5.classList.remove('hidden');
+            pickCard = drawCard();
+            dealerHand.push(`${pickCard}`);
+            checkForWin();
+            render();
+        }else if(dealerHand.length === 6){
+            dealerCard6.classList.remove('hidden');
+            pickCard = drawCard();
+            dealerHand.push(`${pickCard}`);
+            checkForWin();
+            render();
+            }
     }
-function handlehitBtn(evt){
-        hideBets();
-        render();
-        if(playerHand.Length === 2)
+
+   
+    function handleHitBtn(evt){
+        
+        if(playerHand.length === 2){
         playerCard2.classList.remove('hidden');
         pickCard = drawCard();
         playerHand.push(`${pickCard}`);
-        getTotals();
         checkForWin();
+        render();
 
-        if(playerHand.Length === 3)
+        }else if(playerHand.length === 3){
         playerCard3.classList.remove('hidden');
         pickCard = drawCard();
         playerHand.push(`${pickCard}`);
-        getTotals();
         checkForWin();
-
-        // playerCard4.classList.remove('hidden');
-        // pickCard = drawCard();
-        // playerHand.push(`${pickCard}`);
-        // getTotals();
-        // checkForWin();
-
-        // playerCard5.classList.remove('hidden');
-        // pickCard = drawCard();
-        // playerHand.push(`${pickCard}`);
-        // getTotals();
-        // checkForWin();
-
-        // playerCard6.classList.remove('hidden');
-        // pickCard = drawCard();
-        // playerHand.push(`${pickCard}`);
-        // getTotals();
-        // checkForWin();
-    }
-function handleActions(evt){
-    if (evt.target.id === 'doubleBtn') {
-        bet = bet * 2;
-        money -= bet * 2;
-    }
-    if (evt.target.id === 'stayBtn') {
-        setTimeout(() => {
-            let pickCard = drawCard();
-            dealerHand.push(`${pickCard}`);
+        render();
+        }else if(playerHand.length === 4){
+            playerCard4.classList.remove('hidden');
+            pickCard = drawCard();
+            playerHand.push(`${pickCard}`);
+            checkForWin();
             render();
-        }, 1500);
+        }else if(playerHand.length === 5){
+        playerCard5.classList.remove('hidden');
+        pickCard = drawCard();
+        playerHand.push(`${pickCard}`);
+        checkForWin();
+        render();
+        }else if(playerHand.length === 6){
+            playerCard6.classList.remove('hidden');
+            pickCard = drawCard();
+            playerHand.push(`${pickCard}`);
+            checkForWin();
+            render();
+            }
     }
-    // if (evt.target.id === 'splitBtn' && money >= 50) {
-    //     bet += 50;
-    //     money -= 50;
-    // }
-}
 
 // Calculates the card totals for each hand
 function getTotals() {
+    dealerTotal = 0;
+    playerTotal = 0;
     for (i=0; i< dealerHand.length; i++) {
         dealerTotal += cardLookup(`${dealerHand[i]}`)
     }
     for (i=0; i< playerHand.length; i++) {
         playerTotal += cardLookup(`${playerHand[i]}`)
     }
+    render();
 }
 
 // Clears the cards on the table
@@ -199,18 +194,8 @@ function clearHand() {
         
     }
     if(dealerHand.length === 2 && playerHand.length === 2 )
-    //flip hidden dealer card before this will work 100%
-
-    // for (i=0; i<= dealerHand.length; i++) {
-    //     let removeCard = playerHand.splice(0, 1);
-    //     document.getElementById(`dealerCard${i}`).classList.remove(`${removeCard}`);
-    // }
     render();
 }
-
-    
-        
-
 
 // Increase bet amount by value shown on each button
 function addBet(evt) {
@@ -272,12 +257,12 @@ function cardLookup(card) {
     if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
         cardValue = 11;
     }
-    if (card === "dA" && playerTotal > 21 || card === "hA" && playerTotal > 21|| 
-    card ==="cA" && playerTotal > 21 || card === "sA" && playerTotal > 21){
+    if (card === "dA" && playerTotal > 10 || card === "hA" && playerTotal > 10|| 
+    card ==="cA" && playerTotal > 10 || card === "sA" && playerTotal > 10){
             cardValue = 1;
     }
-    if (card === "dA" && dealerTotal > 21 || card === "hA" && dealerTotal > 21|| 
-    card ==="cA" && dealerTotal > 21 || card === "sA" && dealerTotal > 21){
+    if (card === "dA" && dealerTotal > 10 || card === "hA" && dealerTotal > 10|| 
+    card ==="cA" && dealerTotal > 10 || card === "sA" && dealerTotal > 10){
             cardValue = 1;
     }
     if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
@@ -318,12 +303,12 @@ function cardLookup(card) {
 
 // Adjusts all CSS for cards to be rendered
 function render() {
-    betAmount.textContent = `$ ${bet}`;
+    // betAmount.textContent = `$ ${bet}`;
     if (dealerHand.length >= 2){
-    message1.textContent = `Dealer Hands: ${dealerTotal}`;
+        message1.textContent = `Dealer Hands: ${dealerTotal}`;
     }
     if (playerHand.length >= 2){
-    message2.textContent = `Your Hands: ${playerTotal}`;
+        message2.textContent = `Your Hands: ${playerTotal}`;
     }
     if (deck.length < 26) {
         document.getElementById('drawPile').classList.remove('shadow');
@@ -346,64 +331,47 @@ function render() {
             document.getElementById(`dealerCard1`).classList.add(`${dealerHand[i]}`)
             document.getElementById(`dealerCard1`).classList.remove('outline');}
     }
-    // if (playerHand === 2 && dealer Hand ) {    
-    //         for (i=2; i <= playerHand.length; i++) {
-    //             document.getElementById(`dealerCard${i}`).classList.remove('back-red');
-    //             document.getElementById(`dealerCard${i}`).classList.add(`${dealerHand[i]}`)
-    //         }
-    // }
+    
 }
-function flipDealerCard(){
-            hideButtons();
-            if(dealerHand.Length === 2 && playerHand === 2);
+    function flipDealerCard(){
+        hideButtons();
+        if(dealerHand.Length === 2 && playerHand === 2);
             document.getElementById('dealerCard0').classList.remove('back-red');
             document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
-            getTotals();
             checkForWin();
             showHitDoubleStay();
             hideFlippedDealer();
-}
-        function hideFlippedDealer(){
-            flipDealer.classList.remove('hidden');
+    }
+    function hideFlippedDealer(){
+         flipDealer.classList.add('hidden');
         }
 
     function checkForWin(){
-    if (playerTotal === 21 && dealerTotal === 21){
-            messagetotal.textContent = `It's a push!`
-         }
-    if (dealerTotal < 21 && playerTotal === 21){
+        getTotals();
+        if (dealerTotal === 21 && playerHand.Length === 2){
             messagetotal.textContent = `You have BlackJack!`
         }
-    if (dealerTotal === 21 && playerTotal > 21){
+        if (playerTotal === 21 && dealerHand.length === 2){
             messagetotal.textContent = `Dealer has BlackJack!`
         }
+        if (dealerHand.Length === 2 && playerTotal === 21 && dealerTotal === 21){
+            messagetotal.textContent = `It's a push!`
+        }
         //after flip: if dealer > 17 && player player options show
-    if (dealerTotal > 17 < 21){
-            messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
+        if (dealerTotal > 17){
+            // messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
         }
-    if(dealerTotal < 21 && playerTotal < 21){
-            messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
+        if(dealerTotal < 17){
+            // messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
         }
-    // if(playerTotal > dealerTotal){
-    //         messagetotal.textContent = `You Win!`
-    //     }
-        // if(dealerHand[1] === 11){
-        //     message1.textContent = `Insurance Anyone??!`
-        // }
-    
-    if(dealerTotal > 21){
+        if(dealerHand.Length > 2 && playerTotal === dealerTotal && dealerTotal === 17){
+            messagetotal.textContent = `It's a push!`
+        }
+        if(dealerTotal > 21){
          messagetotal.textContent = `Dealer Bust!!`
         }
-    if(playerTotal > 21){
+        if(playerTotal > 21){
             messagetotal.textContent = `You Bust!!`
         }
-    // if(playerTotal < 21 && dealerTotal > 21){
-    //     messagetotal.textContent = `Dealer Bust!`
-    //     }
-    // if(playerTotal < 21 && dealerTotal > 21){
-    //     messagetotal.textContent = `Dealer Bust!`
-    //     }
-    // if(dealerTotal < 21 && playerTotal > 21){
-    //         messagetotal.textContent = `Dealer Wins!`
-    //     }
     }
+    

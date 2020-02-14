@@ -10,9 +10,7 @@
     <title>Blackjack!</title>
 </head>
 <body>
-    <h1 id='message'>Let's Play Blackjack!</h1><br>
-    <h3 id='messagetotal'></h3>
-    <div id='drawPile' class='card shadow large back-red'></div>
+    <h1 id='message'>BlackJack!</h1><br>
     <div id='dealerCard0' class='card large outline'></div>
     <div id='dealerCard1' class='card large outline'></div>
     <div id='dealerCard2' class='card large hidden'></div>
@@ -20,6 +18,7 @@
     <div id='dealerCard4' class='card large hidden'></div>
     <div id='dealerCard5' class='card large hidden'></div>
     <div id='dealerCard6' class='card large hidden'></div><br>
+    <h4 id='messagetotal'></h4>
     <h4 id='message1'></h4>
     <h4 id='message2'></h4>
     <div id='playerCard0' class='card large outline'></div>
@@ -29,21 +28,13 @@
     <div id='playerCard4' class='card large hidden'></div>
     <div id='playerCard5' class='card large hidden'></div>
     <div id='playerCard6' class='card large hidden'></div><br>
-    <div class='bet-info'>Bet Amount:</div>
-    <div id='betAmount' class='bet-info'>$0</div><br>
     <section>
-    <button id='betOne' class='btn btn-warning'>Bet $1</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='betFive' class='btn btn-warning'>Bet $5</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='betTwentyFive' class='btn btn-warning'>Bet $25</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='betFifty' class='btn btn-warning'>Bet $50</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='betHundred' class='btn btn-warning'>Bet $100</button>&nbsp&nbsp&nbsp&nbsp
     <button id='flipDealer' class='btn btn-danger'>Flip Dealer</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='clearBet' class='btn btn-danger'>Clear Bet</button>&nbsp&nbsp&nbsp&nbsp<br>
     <button id='dealBtn' class='btn btn-success'>Deal</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='hitBtn' class='btn btn-success hidden'>Hit</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='doubleBtn' class='btn btn-success hidden'>Double</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='stayBtn' class='btn btn-success hidden'>Stay</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='splitBtn' class='btn btn-success hidden'>Split</button>&nbsp&nbsp&nbsp&nbsp
+    <button id='hitBtn' class='btn btn-success hidden'>HIT</button>&nbsp&nbsp&nbsp&nbsp
+    <button id='standBtn' class='btn btn-success hidden'>STAND</button>&nbsp&nbsp&nbsp&nbsp
     </section>
 </body>
 </html>
+<!-- flipDealer.classList.remove('hidden'); -->
+
