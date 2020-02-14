@@ -4,7 +4,7 @@
   - Create a browser-based game that allows allows two players to play the amazing BlackJack!
 
 ## To play the game:
-- Click here to play the game.
+- Click here(https://jlee8020.github.io/project-blackjack/) to play the game.
 
 ## Motivation:
 BlackJack is a card game of strategy and skills. There's an understated excitement to get a BlackJack! :) Mastering the coding of BlackJack will be a gate way for me to develop a popular (and now illegal game - yes it's that popular) in the Philippines called Tong Its.
