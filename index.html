@@ -6,35 +6,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="css/cardstarter.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fondamento&display=swap" rel="stylesheet">
     <script defer src="js/main.js"></script>
     <title>Blackjack!</title>
 </head>
 <body>
+    <div class='container'>
     <h1 id='message'>BlackJack!</h1><br>
+    <div class='dealerCards'>
     <div id='dealerCard0' class='card large outline'></div>
     <div id='dealerCard1' class='card large outline'></div>
     <div id='dealerCard2' class='card large hidden'></div>
     <div id='dealerCard3' class='card large hidden'></div>
     <div id='dealerCard4' class='card large hidden'></div>
     <div id='dealerCard5' class='card large hidden'></div>
-    <div id='dealerCard6' class='card large hidden'></div><br>
+    <div id='dealerCard6' class='card large hidden'></div>
+    </div>
+    <div class='messages'>
     <h4 id='messagetotal'></h4>
     <h4 id='message1'></h4>
     <h4 id='message2'></h4>
+    </div>
+    <div class=playerCards>
     <div id='playerCard0' class='card large outline'></div>
     <div id='playerCard1' class='card large outline'></div>
     <div id='playerCard2' class='card large hidden'></div>
     <div id='playerCard3' class='card large hidden'></div>
     <div id='playerCard4' class='card large hidden'></div>
     <div id='playerCard5' class='card large hidden'></div>
-    <div id='playerCard6' class='card large hidden'></div><br>
-    <section>
+    <div id='playerCard6' class='card large hidden'></div>
+    </div>
+    <div>
     <button id='flipDealer' class='btn btn-danger'>Flip Dealer</button>&nbsp&nbsp&nbsp&nbsp
     <button id='dealBtn' class='btn btn-success'>Deal</button>&nbsp&nbsp&nbsp&nbsp
     <button id='hitBtn' class='btn btn-success hidden'>HIT</button>&nbsp&nbsp&nbsp&nbsp
     <button id='standBtn' class='btn btn-success hidden'>STAND</button>&nbsp&nbsp&nbsp&nbsp
-    </section>
+    </div>
+    </div>
 </body>
 </html>
-<!-- flipDealer.classList.remove('hidden'); -->
 

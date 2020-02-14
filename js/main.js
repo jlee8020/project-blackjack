@@ -30,7 +30,8 @@ let playerCard5 = document.getElementById('playerCard5');
 let playerCard6 = document.getElementById('playerCard6');
 let dealerCard0 = document.getElementById('back-red');
 let flipDealer = document.getElementById('flipDealer');
-let messagetotal = document.getElementById('messagetotal')
+let messagetotal = document.getElementById('messagetotal');
+let dealerCard2=document.getElementById('dealerCard2');
 // Event listeners
 
 dealBtn.addEventListener('click', dealHand);
@@ -101,9 +102,9 @@ function dealHand() {
 
         if(dealerHand.length === 2 && dealerTotal < 17){
             dealerCard2.classList.remove('hidden');
-            document.getElementById(`dealerCard2`).classList.add(`${dealerHand[i]}`)
             pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
+            dealerCard2.classList.add(pickCard);
             checkForWin();
             render();
         }
@@ -111,6 +112,7 @@ function dealHand() {
             dealerCard3.classList.remove('hidden');
             pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
+            dealerCard3.classList.add(pickCard);
             checkForWin();
             render();
         }
@@ -118,12 +120,14 @@ function dealHand() {
             dealerCard4.classList.remove('hidden');
             pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
+            dealerCard4.classList.add(pickCard);
             checkForWin();
             render();
         }else if(dealerHand.length === 5 && dealerTotal < 17){
             dealerCard5.classList.remove('hidden');
             pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
+            dealerCard5.classList.add(pickCard);
             checkForWin();
             render();
         }else if(dealerHand.length === 6){
@@ -351,10 +355,13 @@ function render() {
         if (dealerTotal === 21 && playerHand.Length === 2){
             messagetotal.textContent = `You have BlackJack!`
         }
-        if (playerTotal === 21 && dealerHand.length === 2){
+        if (playerTotal === 21 && dealerHand.length === 2 && playerHand.Length === 2){
             messagetotal.textContent = `Dealer has BlackJack!`
         }
-        if (dealerHand.Length === 2 && playerTotal === 21 && dealerTotal === 21){
+        if (playerTotal === 21 && dealerTotal === 21){
+            messagetotal.textContent = `It's a push!`
+        }
+        if (dealerTotal === playerTotal){
             messagetotal.textContent = `It's a push!`
         }
         //after flip: if dealer > 17 && player player options show
