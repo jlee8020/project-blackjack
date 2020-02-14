@@ -15,7 +15,7 @@ BlackJack is a card game of strategy and skills. There's an understated exciteme
 ## Prototype View:
 - Here is my initial drawing of the playing field:
 - Here is an initial wire-frame of how the playing field will be set up:
-![Image of Initial Wire Frame] Screen Shot 2020-02-07 at 2.17.51 PM.png
+![Image of Initial Wire Frame] https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-07%20at%202.17.51%20PM.png?raw=true
 
 - Here is what the playing field looks like, post styling:
 
