@@ -20,7 +20,10 @@ Never have I thought that my favorite asino game would challenge beyond anything
 ![Image of Initial Wire Frame](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-07%20at%202.17.51%20PM.png?raw=true)
 
 - Here is what the playing field looks like, post styling:
-![Finish Product]
+![Initial](Screen Shot 2020-02-18 at 8.44.24 PM.png)
+![Blackjack](Screen Shot 2020-02-18 at 8.51.37 PM.png)
+![Win1](Screen Shot 2020-02-14 at 11.55.06 AM.png)
+![Win2](Screen Shot 2020-02-18 at 8.42.15 PM.png)
 
 ## Technology Implemented:
 JavaScript
