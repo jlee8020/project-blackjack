@@ -14,13 +14,13 @@ Never have I thought that my favorite asino game would challenge beyond anything
 
 ## Prototype View:
 - Here is my initial drawing of the playing field:
-![Inital Plan](https://github.com/jlee8020/project-blackjack/blob/master/IMG_4676.jpg)
+
 
 - Here is an initial wire-frame of how the playing field will be set up:
 ![Image of Initial Wire Frame](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-07%20at%202.17.51%20PM.png?raw=true)
 
 - Here is what the playing field looks like, post styling:
-![Finish Product](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-14%20at%2011.55.06%20AM.png)
+![Finish Product]
 
 ## Technology Implemented:
 JavaScript
@@ -33,23 +33,23 @@ CSS Tricks
 
 
 ## Pseudocode:
-
+![Inital Plan](https://github.com/jlee8020/project-blackjack/blob/master/IMG_4676.jpg)
 
 ## User Experience:
-### User Persona #1:
 
-### User Persona #2:
 
 ## Minimum Viable Product:
-As a user, I should be able to 
-As a user, I should be able to 
-As a user, I should be able to 
-As a user, I should be able to 
+As a user, I should be able to deal cards and play against dealer.
+As a user, I should be able to total 21 and win Blackjack.
+As a user, I should be able to beat the dealer when dealer if dealer cards total more than 21.
+As a user, I should be able to get a busts if my cards total is more than 21.
 As a user, I should be able to see if I win!
 
 ## Stretch Goals:
 Mobile responsiveness
 Additional Buttons such as BETS.
+Split button
+Double Button
 More styling and theme
 
 
