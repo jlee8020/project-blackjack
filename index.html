@@ -13,6 +13,12 @@
 <body>
     <div class='container'>
     <h1 id='message'>BlackJack!</h1><br>
+    <div class='messages'>
+    <h4 id='messagetotal'></h4>
+    <h4 id='message1' ></h4>
+    <h4 id='message2'></h4>
+    <h4 id='messageResults'></h4>
+    </div>
     <div class='dealerCards'>
     <div id='dealerCard0' class='card large outline'></div>
     <div id='dealerCard1' class='card large outline'></div>
@@ -21,11 +27,6 @@
     <div id='dealerCard4' class='card large hidden'></div>
     <div id='dealerCard5' class='card large hidden'></div>
     <div id='dealerCard6' class='card large hidden'></div>
-    </div>
-    <div class='messages'>
-    <h4 id='messagetotal'></h4>
-    <h4 id='message1'></h4>
-    <h4 id='message2'></h4>
     </div>
     <div class=playerCards>
     <div id='playerCard0' class='card large outline'></div>
@@ -36,12 +37,11 @@
     <div id='playerCard5' class='card large hidden'></div>
     <div id='playerCard6' class='card large hidden'></div>
     </div>
-    <div>
-    <button id='flipDealer' class='btn btn-danger'>Flip Dealer</button>&nbsp&nbsp&nbsp&nbsp
+    <div id='button' class='button'>
     <button id='dealBtn' class='btn btn-success'>Deal</button>&nbsp&nbsp&nbsp&nbsp
     <button id='hitBtn' class='btn btn-success hidden'>HIT</button>&nbsp&nbsp&nbsp&nbsp
-    <button id='standBtn' class='btn btn-success hidden'>STAND</button>&nbsp&nbsp&nbsp&nbsp
-    </div>
+    <button id='standBtn' class='btn btn-success hidden'>STAND</buttDon>&nbsp&nbsp&nbsp&nbsp
+    <button id='reset'  class='btn btn-success hidden'>PLAY AGAIN</button>&nbsp&nbsp&nbsp&nbsp
     </div>
 </body>
 </html>

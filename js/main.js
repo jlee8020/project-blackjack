@@ -2,25 +2,16 @@
 let deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"];
 let playerHand = [];
 let dealerHand = [];
-let money = 1000;
-let bet = 0;
+playerBets = [];
+// let playerBets = [];
 let playerTotal = 0;
 let dealerTotal = 0;
 let pickCard;
+
 // Cached element references
 let message = document.getElementById('message');
 let message1 = document.getElementById('message1');
 let message2 = document.getElementById('message2');
-let bet1 = document.getElementById('betOne');
-let bet5 = document.getElementById('betFive');
-let bet25 = document.getElementById('betTwentyFive');
-let bet50 = document.getElementById('betFifty');
-let bet100 = document.getElementById('betHundred');
-let betAmount = document.getElementById('betAmount');
-let clearBet = document.getElementById('clearBet');
-let dealBtn = document.getElementById('dealBtn');
-let hitBtn = document.getElementById('hitBtn');
-let doubleBtn = document.getElementById('doubleBtn');
 let standBtn = document.getElementById('standBtn');
 let splitBtn = document.getElementById('splitBtn');
 let playerCard2 = document.getElementById('playerCard2');
@@ -29,16 +20,18 @@ let playerCard4 = document.getElementById('playerCard4');
 let playerCard5 = document.getElementById('playerCard5');
 let playerCard6 = document.getElementById('playerCard6');
 let dealerCard0 = document.getElementById('back-red');
-let flipDealer = document.getElementById('flipDealer');
 let messagetotal = document.getElementById('messagetotal');
 let dealerCard2=document.getElementById('dealerCard2');
+let messageResults=document.getElementById('messageResults');
+
+let reset = document.getElementById('reset');
+
 // Event listeners
 
 dealBtn.addEventListener('click', dealHand);
 hitBtn.addEventListener('click', handleHitBtn);
-
-flipDealer.addEventListener('click', flipDealerCard)
 standBtn.addEventListener('click', handleStandBtn);
+reset.addEventListener('click', init)
 
 
 
@@ -47,9 +40,12 @@ function init() {
     deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"];
     playerHand = [];
     dealerHand = [];
+    currentBank = 1000;
+    currentBet = '';
+    // betTotal = betOne + betFive + betTwentyFive + betFifty + betHundred;
+    
     render();
 }
-
 
 // Shows bet buttons when cards are cleared
 function showBets() {
@@ -60,19 +56,35 @@ function showBets() {
     bet100.classList.remove('hidden');
     clearBet.classList.remove('hidden');
 }
-function showHitDoubleStay(){
+function hideDealBtn(){
+    dealBtn.classList.add('hidden');
+}
 
+function showHitBtn(){
+    hitBtn.classList.remove('hidden');
+}
+
+
+function hideStandPlayAgain(){
+    standBtn.classList.add('hidden');
+    reset.classList.add('hidden');
+} 
+
+function showStandPlayAgain(){
+    standBtn.classList.remove('hidden');
+    reset.classList.remove('hidden');
+} 
+
+function showHitDoubleStand(){
+    hideDealBtn();
     hitBtn.classList.remove('hidden');
     standBtn.classList.remove('hidden');
-}
-function hideButtons(){
-    dealBtn.classList.add('hidden');
-    hitBtn.classList.add('hidden');
-    standBtn.classList.add('hidden');
+    reset.classList.remove('hidden')
 }
 
 // Deals the first 4 cards in the round
 function dealHand() {
+
     setTimeout(() => {
         let pickCard = drawCard();
         dealerHand.push(`${pickCard}`);
@@ -95,87 +107,151 @@ function dealHand() {
     }, 2000);
     setTimeout(getTotals, 2500);
     
-    hideButtons();
+    showHitDoubleStand();
+
 };
 
-    function handleStandBtn(){
 
-        if(dealerHand.length === 2 && dealerTotal < 17){
+function handleStandBtn(){
+    getTotals();
+    checkForDWin();
+    checkForPWin();
+    
+    document.getElementById('dealerCard0').classList.remove('back-red');
+    document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
+    
+    if(dealerTotal < 17){
+            setTimeout(() => {
             dealerCard2.classList.remove('hidden');
-            pickCard = drawCard();
+            let pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
             dealerCard2.classList.add(pickCard);
-            checkForWin();
+            getTotals();
+            checkForDWin()
+            checkForPWin();
             render();
-        }
-        else if(dealerHand.length === 3 && dealerTotal < 17){
+            }, 0);
+    }else
+    if(dealerTotal < 17){
+            setTimeout(() => {
             dealerCard3.classList.remove('hidden');
-            pickCard = drawCard();
+            let pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
             dealerCard3.classList.add(pickCard);
-            checkForWin();
+            getTotals();
+            checkForDWin();
+            checkForPWin();
             render();
-        }
-        else if(dealerHand.length === 4 && dealerTotal < 17){
+            }, 200);
+    }else
+    if(dealerTotal < 17){
+            setTimeout(() => {
             dealerCard4.classList.remove('hidden');
-            pickCard = drawCard();
+            let pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
             dealerCard4.classList.add(pickCard);
-            checkForWin();
+            getTotals();
+            checkForDWin()
+            checkForPWin();
             render();
-        }else if(dealerHand.length === 5 && dealerTotal < 17){
+            }, 600);
+    }else
+    if(dealerTotal < 17){
+            setTimeout(() => {
             dealerCard5.classList.remove('hidden');
-            pickCard = drawCard();
+            let pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
             dealerCard5.classList.add(pickCard);
-            checkForWin();
+            getTotals();
+            checkForDWin()
+            checkForPWin();
             render();
-        }else if(dealerHand.length === 6){
-            dealerCard6.classList.remove('hidden');
-            pickCard = drawCard();
+            }, 650);
+    }else
+    if(dealerTotal < 17){
+            setTimeout(() => {
+            dealerCard5.classList.remove('hidden');
+            let pickCard = drawCard();
             dealerHand.push(`${pickCard}`);
-            checkForWin();
+            dealerCard5.classList.add(pickCard);
+            getTotals();
+            checkForDWin()
+            checkForPWin();
             render();
-            }
+            }, 700);
+    }
+        
+    render();
+    
     }
 
-   
-    function handleHitBtn(evt){
-        
-        if(playerHand.length === 2){
-        playerCard2.classList.remove('hidden');
-        pickCard = drawCard();
-        playerHand.push(`${pickCard}`);
-        checkForWin();
-        render();
+function handleHitBtn(evt){
+
+    getTotals();
+    checkForDWin();
+    checkForPWin();
+
+    playerCard2.classList.remove('hidden');
+    if(playerHand.length === 2){
+            pickCard = drawCard();
+            playerHand.push(`${pickCard}`);
+            playerCard2.classList.add(pickCard);
+            getTotals();
+            showHitDoubleStand();
+
+            document.getElementById('dealerCard0').classList.remove('back-red');
+            document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
+            render();
 
         }else if(playerHand.length === 3){
         playerCard3.classList.remove('hidden');
-        pickCard = drawCard();
-        playerHand.push(`${pickCard}`);
-        checkForWin();
-        render();
-        }else if(playerHand.length === 4){
-            playerCard4.classList.remove('hidden');
             pickCard = drawCard();
             playerHand.push(`${pickCard}`);
-            checkForWin();
+            playerCard3.classList.add(pickCard);
+            getTotals();
+            showHitDoubleStand();
+
+            document.getElementById('dealerCard0').classList.remove('back-red');
+            document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
             render();
+
+        }else if(playerHand.length === 4){
+        playerCard4.classList.remove('hidden');
+            pickCard = drawCard();
+            playerHand.push(`${pickCard}`);
+            playerCard4.classList.add(pickCard);
+
+            getTotals();
+            showHitDoubleStand();
+
+            document.getElementById('dealerCard0').classList.remove('back-red');
+            document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
+            render();
+
         }else if(playerHand.length === 5){
         playerCard5.classList.remove('hidden');
-        pickCard = drawCard();
-        playerHand.push(`${pickCard}`);
-        checkForWin();
-        render();
+            pickCard = drawCard();
+            playerHand.push(`${pickCard}`);
+            playerCard4.classList.add(pickCard);
+
+            getTotals();
+            showHitDoubleStand();
+
+            document.getElementById('dealerCard0').classList.remove('back-red');
+            document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
+            render();
+
         }else if(playerHand.length === 6){
             playerCard6.classList.remove('hidden');
             pickCard = drawCard();
             playerHand.push(`${pickCard}`);
-            checkForWin();
-            render();
-            }
-    }
+            playerCard4.classList.add(pickCard);
 
+            getTotals();
+            render();
+            showHitDoubleStand();
+            }
+        }
 // Calculates the card totals for each hand
 function getTotals() {
     dealerTotal = 0;
@@ -201,35 +277,6 @@ function clearHand() {
     render();
 }
 
-// Increase bet amount by value shown on each button
-function addBet(evt) {
-    if (evt.target.id === 'betOne' && money >= 1) {
-        bet += 1;
-        money -= 1;
-    }
-    if (evt.target.id === 'betFive' && money >= 5) {
-        bet += 5;
-        money -= 5;
-    }
-    if (evt.target.id === 'betTwentyFive' && money >= 25) {
-        bet += 25;
-        money -= 25;
-    }
-    if (evt.target.id === 'betFifty' && money >= 50) {
-        bet += 50;
-        money -= 50;
-    }
-    if (evt.target.id === 'betHundred' && money >= 100) {
-        bet += 100;
-        money -= 100;
-    }
-    if (evt.target.id === 'clearBet') {
-        money += bet;
-        bet = 0;
-    }
-    render()
-}
-
 // Function to randomly pick a card from the ones remaining in the deck
 function drawCard() {
     randIdx = Math.floor(Math.random() * deck.length);
@@ -242,11 +289,12 @@ function shuffleDeck(cardsToShuffle) {
     let shuffledCards = [];
     let shuffled;
 
-        for (i=30; i=cardsToShuffle.length; i++){
+    for (i=30; i=cardsToShuffle.length; i++){
             randIdx=Math.floor(Math.random()*cardsToShuffle.length);
             shuffled = cardsToShuffle.splice(randIdx, 1);
             shuffledCards.push(`${shuffled}`);
-        }
+     }
+
     message.textContent = 'Cards Low, Deck Shuffled';
     deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"];
     playerHand = [];
@@ -258,19 +306,31 @@ function shuffleDeck(cardsToShuffle) {
 // Looks up the card passed in and returns a numerical value for it
 function cardLookup(card) {
     let cardValue;
-    if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
+    if (card === "dA" && playerTotal === 11 && playerHand.length === 2  || card === "hA" && playerTotal === 10 && playerHand.length === 2 || card ==="cA" && playerTotal === 10 && playerHand.length === 2 || card === "sA" && playerTotal === 10 && playerHand.length === 2){
         cardValue = 11;
     }
-    if (card === "dA" && playerTotal > 10 || card === "hA" && playerTotal > 10|| 
-    card ==="cA" && playerTotal > 10 || card === "sA" && playerTotal > 10){
+    if (card === "dA" && dealerTotal === 11 && dealerHand.length === 2  || card === "hA" && dealerTotal === 10 && dealerHand.length === 2 || card ==="cA" && dealerTotal === 10 && dealerHand.length === 2 || card === "sA" && dealerTotal === 10 && dealerHand.length === 2){
+        cardValue = 11;
+    }
+    if (card === "dA" && playerTotal === 10 || card === "hA" && playerTotal === 10 || card ==="cA" && playerTotal === 10 || card === "sA" && playerTotal === 10){
+        cardValue = 11;
+    }
+    if (card === "dA" && playerTotal < 10 || card === "hA" && playerTotal < 10 || card ==="cA" && playerTotal < 10 || card === "sA" && playerTotal < 10){
+        cardValue = 11;
+    }
+    if (card === "dA" && dealerTotal === 10 || card === "hA" && dealerTotal === 10 || card ==="cA" && dealerTotal === 10 || card === "sA" && dealerTotal === 10){
+        cardValue = 11;
+    }
+    if (card === "dA" && dealerTotal < 10 || card === "hA" && dealerTotal < 10 || card ==="cA" && dealerTotal < 10 || card === "sA" && dealerTotal < 10){
+        cardValue = 11;
+    }
+    if (card === "dA" && playerTotal > 10 && playerTotal < 21|| card === "hA" && playerTotal >= 10 && playerTotal < 21 || 
+    card ==="cA" && playerTotal > 10 && playerTotal < 21 || card === "sA" && playerTotal > 10 && playerTotal < 21){
             cardValue = 1;
     }
-    if (card === "dA" && dealerTotal > 10 || card === "hA" && dealerTotal > 10|| 
-    card ==="cA" && dealerTotal > 10 || card === "sA" && dealerTotal > 10){
+    if (card === "dA" && dealerTotal > 10 && dealerTotal < 21 || card === "hA" && dealerTotal > 10 && dealerTotal < 21|| 
+    card ==="cA" && dealerTotal > 10 && dealerTotal < 21 || card === "sA" && dealerTotal > 10 && dealerTotal < 21){
             cardValue = 1;
-    }
-    if (card === "dA" || card === "hA" || card ==="cA" || card === "sA"){
-            cardValue = 11;
     }
     if (card === "dQ" || card === "hQ" || card === "cQ" || card === "sQ" ||
         card === "dK" || card === "hK" || card === "cK" || card === "sK" ||
@@ -307,7 +367,7 @@ function cardLookup(card) {
 
 // Adjusts all CSS for cards to be rendered
 function render() {
-    // betAmount.textContent = `$ ${bet}`;
+    // betAmount.textContent = `$ ${betAmount}`;
     if (dealerHand.length >= 2){
         message1.textContent = `Dealer Hands: ${dealerTotal}`;
     }
@@ -337,48 +397,98 @@ function render() {
     }
     
 }
-    function flipDealerCard(){
-        hideButtons();
-        if(dealerHand.Length === 2 && playerHand === 2);
+    
+function flipDealerCard(){
+        message1.classList.remove('hidden');
+        if(dealerHand.length === 2 && playerHand === 2);
             document.getElementById('dealerCard0').classList.remove('back-red');
             document.getElementById(`dealerCard0`).classList.add(`${dealerHand[0]}`)
-            checkForWin();
-            showHitDoubleStay();
-            hideFlippedDealer();
-    }
-    function hideFlippedDealer(){
-         flipDealer.classList.add('hidden');
-        }
+            
+}
 
-    function checkForWin(){
-        getTotals();
-        if (dealerTotal === 21 && playerHand.Length === 2){
-            messagetotal.textContent = `You have BlackJack!`
-        }
-        if (playerTotal === 21 && dealerHand.length === 2 && playerHand.Length === 2){
-            messagetotal.textContent = `Dealer has BlackJack!`
-        }
-        if (playerTotal === 21 && dealerTotal === 21){
-            messagetotal.textContent = `It's a push!`
-        }
-        if (dealerTotal === playerTotal){
-            messagetotal.textContent = `It's a push!`
-        }
-        //after flip: if dealer > 17 && player player options show
-        if (dealerTotal > 17){
-            // messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
-        }
-        if(dealerTotal < 17){
-            // messagetotal.textContent = `Choose your options: HIT STAND OR DOUBLE`
-        }
-        if(dealerHand.Length > 2 && playerTotal === dealerTotal && dealerTotal === 17){
-            messagetotal.textContent = `It's a push!`
-        }
-        if(dealerTotal > 21){
-         messagetotal.textContent = `Dealer Bust!!`
-        }
-        if(playerTotal > 21){
-            messagetotal.textContent = `You Bust!!`
-        }
+function checkForDWin(){
+    getTotals();
+    render();
+    //for blackjack
+    if(dealerHand.length === 2 && playerHand.length === 2 && dealerTotal === 21 && dealerTotal > playerTotal ){
+            messagetotal.textContent = `BlackJack! Dealer Wins!`;
+            return true
+    }else
+    if(dealerHand.length === 2 && playerHand.length === 2 && dealerTotal > playerTotal && dealerTotal > 16 && dealerTotal < 21){
+            messagetotal.textContent = `Dealer Wins!!`
+            return true; 
+    }else
+    if(dealerHand.length === 2 && playerHand.length === 2 && dealerTotal === playerTotal && dealerTotal > 16 && dealerTotal < 21){
+            messagetotal.textContent = `It's a push!!`
+            return true; 
+    }else
+    if(dealerHand.length > 2 && dealerTotal > 21){
+        messagetotal.textContent = `Dealer BUST!!! You WIN!!`
+        return true;
+    }else
+    if(dealerHand.length > 2 && dealerTotal > 17 && dealerTotal < 21 && dealerTotal > playerTotal){
+        messagetotal.textContent =`Dealer Wins!!`
+        return true;
+    }else
+    if(dealerHand.length > 2 && dealerTotal === 17 && dealerTotal < 21 && dealerTotal > playerTotal){
+        messagetotal.textContent =`Dealer Wins!!`
+        return true;
     }
+    if(dealerHand.length > 2 && dealerTotal === 21 && dealerTotal > playerTotal){
+            messagetotal.textContent =`Dealer Wins!!`
+            return true;
+    }else 
+    if(dealerHand.length > 2 && dealerTotal === playerTotal){
+        messagetotal.textContent = `It's a Push!!`
+        return true;
+    }
+}
+
     
+function checkForPWin(){
+    getTotals();
+    render()
+    //for blackjack
+    if(playerHand.length === 2 && dealerHand.length === 2 && playerTotal === 21 && playerTotal > dealerTotal ){
+            messagetotal.textContent = `BlackJack! You WIN!!`;
+            return true
+    }else
+    if(playerHand.length === 2 && dealerHand.length === 2 && playerTotal > 17 && playerTotal < 21 && playerTotal > dealerTotal ){
+            messagetotal.textContent = `You WIN!!`
+            return true; 
+    }else
+    if(playerHand.length === 2 && dealerHand.length === 2 && playerTotal > 17 && playerTotal < 21 && playerTotal === dealerTotal){
+            messagetotal.textContent = `It's a push!!`
+            return true; 
+    }else
+    if(playerHand.length === 2 && dealerHand.length === 2 && playerTotal === 17 && playerTotal < 21 && playerTotal === dealerTotal){
+            messagetotal.textContent = `It's a push!!`
+            return true; 
+    }else
+    if(playerTotal > 21){
+            messagetotal.textContent = `You BUST!!! Dealer Wins!!!`
+            return true;
+    }else
+    if(playerHand.length > 2 && dealerHand.length === 2 && playerTotal > 17 && playerTotal < 21 && playerTotal > dealerTotal){
+        messagetotal.textContent =`You WIN!!`
+        return true;
+    }
+    if(playerHand.length > 2 && dealerHand.length === 2 && playerTotal === 17 && playerTotal < 21 && playerTotal > dealerTotal){
+            messagetotal.textContent =`You WIN!!`
+            return true;
+    }
+    if(playerHand.length > 2 && playerTotal > 17 && playerTotal < 21 && playerTotal > dealerTotal){
+            messagetotal.textContent =`You WIN!!`
+            return true;
+    }else
+    if(playerHand.length > 2 && playerTotal > dealerTotal){
+        messagetotal.textContent = `You WIN!!`
+        return true;
+    }else 
+    if(playerHand.length > 2 && playerTotal === dealerTotal){
+        messagetotal.textContent = `It's a Push!!`
+        return true;
+    }
+}
+
+

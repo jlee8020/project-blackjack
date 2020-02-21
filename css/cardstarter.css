@@ -11,10 +11,19 @@ h1{
   /* flex-wrap: nowrap; */
   width: 350px;
   height: 100px;
-  margin-left: 400px;
+  margin-left: 300px;
   border-radius: 20px;
   margin-top: 0px;
   display: inline-block;
+}
+.button{
+  display: inline-block;
+  width: 5vm;
+  align-items: flex end;
+}
+.bets{
+  display: inline-block;
+  width: 5vm;
 }
 body {
     text-align: center;
@@ -30,8 +39,14 @@ body {
   .playerCards{
     display: inline-block;
   }
+  .betOne{
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
   .container{
     display: flex;
+    justify-content: center;
     flex-direction: column;
     text-align: center;
     background-color: lightslategray;
