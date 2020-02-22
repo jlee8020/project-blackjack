@@ -22,7 +22,7 @@ Never have I thought that my favorite casino game would challenge me beyond anyt
 - Here is what the playing field looks like, post styling:
 ![initial](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-18%20at%208.44.24%20PM.png)
 
-![dealer win blackjack](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-18%20at%208.51.37%20PM.png
+![dealer win blackjack](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-18%20at%208.51.37%20PM.png)
 
 ![player blackjack](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.05.09%20PM.png)
 
