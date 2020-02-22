@@ -20,20 +20,25 @@ Never have I thought that my favorite casino game would challenge me beyond anyt
 ![Image of Initial Wire Frame](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-07%20at%202.17.51%20PM.png?raw=true)
 
 - Here is what the playing field looks like, post styling:
-![Initial](Screen Shot 2020-02-18 at 8.44.24 PM.png)
-![Blackjack](Screen Shot 2020-02-18 at 8.51.37 PM.png)
-![Win1](Screen Shot 2020-02-14 at 11.55.06 AM.png)
-![Win2](Screen Shot 2020-02-18 at 8.42.15 PM.png)
+![initial](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-18%20at%208.44.24%20PM.png)
 
-![initial](Screen Shot 2020-02-18 at 8.44.24 PM.png) 
-![dealer blackjack](Screen Shot 2020-02-18 at 8.51.37 PM.png) 
-![player wins black](jackScreen Shot 2020-02-22 at 12.05.09 PM.png)
-![dealer bust](Screen Shot 2020-02-18 at 8.42.15 PM.png)
-![player bust](Screen Shot 2020-02-22 at 1.07.20 PM.png)
+![dealer win blackjack](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-18%20at%208.51.37%20PM.png
 
-![dealer wins regular](Screen Shot 2020-02-18 at 8.45.09 PM.png)
-![player wins hand](Screen Shot 2020-02-22 at 12.11.32 PM.png)
-![push](Screen Shot 2020-02-22 at 12.01.37 PM.png)
+![player blackjack](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.05.09%20PM.png)
+
+![dealer win](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-18%20at%208.45.09%20PM.png)
+
+![Player win](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.12.19%20PM.png)
+
+![dealer bust](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-18%20at%208.42.15%20PM.png)
+
+![player bust](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%201.07.20%20PM.png)
+
+![push](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.01.37%20PM.png)
+
+![player bust](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.12.39%20PM.png)
+
+
 
 ## Technology Implemented:
 JavaScript
