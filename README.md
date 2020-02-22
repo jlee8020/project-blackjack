@@ -34,7 +34,7 @@ Never have I thought that my favorite casino game would challenge me beyond anyt
 
 ![player bust](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%201.07.20%20PM.png)
 
-![push](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.01.37%20PM.png)
+![push](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.04.24%20PM.png)
 
 ![player bust](https://github.com/jlee8020/project-blackjack/blob/master/Screen%20Shot%202020-02-22%20at%2012.12.39%20PM.png)
 
