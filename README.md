@@ -25,6 +25,16 @@ Never have I thought that my favorite casino game would challenge me beyond anyt
 ![Win1](Screen Shot 2020-02-14 at 11.55.06 AM.png)
 ![Win2](Screen Shot 2020-02-18 at 8.42.15 PM.png)
 
+![initial](Screen Shot 2020-02-18 at 8.44.24 PM.png) 
+![dealer blackjack](Screen Shot 2020-02-18 at 8.51.37 PM.png) 
+![player wins black](jackScreen Shot 2020-02-22 at 12.05.09 PM.png)
+![dealer bust](Screen Shot 2020-02-18 at 8.42.15 PM.png)
+![player bust](Screen Shot 2020-02-22 at 1.07.20 PM.png)
+
+![dealer wins regular](Screen Shot 2020-02-18 at 8.45.09 PM.png)
+![player wins hand](Screen Shot 2020-02-22 at 12.11.32 PM.png)
+![push](Screen Shot 2020-02-22 at 12.01.37 PM.png)
+
 ## Technology Implemented:
 JavaScript
 CSS
