@@ -57,11 +57,11 @@ CSS Tricks
 
 
 ## Minimum Viable Product:
-As a user, I should be able to deal cards and play against dealer.
-As a user, I should be able to total 21 and win Blackjack.
-As a user, I should be able to beat the dealer when dealer if dealer cards total more than 21.
-As a user, I should be able to get a busts if my cards total is more than 21.
-As a user, I should be able to see if I win!
+- As a user, I should be able to deal cards and play against dealer.
+- As a user, I should be able to total 21 and win Blackjack.
+- As a user, I should be able to beat the dealer when dealer if dealer cards total more than 21.
+- As a user, I should be able to get a busts if my cards total is more than 21.
+- As a user, I should be able to see if I win!
 
 ## Stretch Goals:
 Mobile responsiveness
