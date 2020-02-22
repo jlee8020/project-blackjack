@@ -1,4 +1,4 @@
-# project-blackjack
+# BlackJack
 
 ## Objective:
   - Create a browser-based game that allows allows two players to play the amazing BlackJack!
