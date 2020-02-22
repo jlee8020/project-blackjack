@@ -514,7 +514,7 @@ function checkForPWin(){
         return true;
     }else
     if(playerTotal > 21){
-        messagetotal.textContent = `You Busts!!!`
+        messagetotal.textContent = `You Busts!!! Dealer WIN!!`
         return true;
     }else
     if(dealerHand.length > 2 && dealerTotal > 16 && dealerTotal < 21 && dealerTotal > playerTotal){
